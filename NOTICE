@@ -1,0 +1,22 @@
+Brasil em Órbita: Índice de Dependência Municipal (IDM)
+Copyright 2026 Pedro Carvalho Brom, Daniel Soares de Souza
+
+Este repositorio reune materiais sob regimes distintos, detalhados em LICENSE:
+a documentacao esta sob CC BY 4.0; os artefatos de dado derivados do
+processamento dos autores sao publicados para consulta e verificacao, com
+redistribuicao e uso comercial reservados; e o software que os produz nao e
+distribuido aqui e permanece com todos os direitos reservados.
+
+Os dados de origem são conjuntos abertos, de domínio dos respectivos órgãos
+federais, reusados sob seus termos de dado aberto e citados com fonte e data de
+extração no manifesto de proveniência (dados/manifesto.json):
+
+  - IBGE: REGIC, PIB dos Municípios, Estimativas de População, Malha Municipal.
+  - Secretaria do Tesouro Nacional (Siconfi): FINBRA/DCA.
+  - Ministério da Saúde / DATASUS: CNES.
+  - INEP/MEC: Censo da Educação Superior.
+  - Banco Central do Brasil: ESTBAN e informes de agências e correspondentes.
+  - PNUD, Ipea e Fundação João Pinheiro: IDHM (Atlas Brasil), camada de contexto.
+
+O arquivo dados/mundo.geojson deriva do Natural Earth (escala 1:110m), conjunto
+cartográfico de domínio público, usado apenas como cenário de fundo do mapa.

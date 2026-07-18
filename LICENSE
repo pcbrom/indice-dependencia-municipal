@@ -1,0 +1,82 @@
+TERMOS DE USO E LICENCA
+
+Brasil em Orbita: Indice de Dependencia Municipal (IDM)
+Copyright 2026 Pedro Carvalho Brom, Daniel Soares de Souza.
+
+Este repositorio reune materiais de tres naturezas distintas, sob regimes
+distintos. Leia a secao correspondente ao que voce pretende usar.
+
+
+1. DADOS PUBLICOS DE ORIGEM  ---  livres, nao sao nossos
+
+As bases federais reusadas (IBGE, Secretaria do Tesouro Nacional, DATASUS,
+INEP/MEC, Banco Central, PNUD/Ipea/FJP) sao dados abertos dos respectivos
+orgaos e seguem os termos de cada um. Nada nestes termos restringe o seu uso.
+Estao identificadas, com endereco e data de extracao, no arquivo NOTICE e no
+manifesto de proveniencia em dados/manifesto.json. Qualquer pessoa pode
+obte-las na fonte e processa-las como quiser.
+
+
+2. DOCUMENTACAO  ---  Creative Commons Atribuicao 4.0 Internacional (CC BY 4.0)
+
+Os arquivos de docs/ e cookbook/ e o README.md, que descrevem o problema, a
+especificacao do indice, as fontes, o contrato de dado e o procedimento de
+conferencia, estao licenciados sob CC BY 4.0:
+
+    https://creativecommons.org/licenses/by/4.0/deed.pt
+
+Voce pode compartilhar e adaptar esses textos, inclusive comercialmente, desde
+que de o credito apropriado, indique se houve mudancas e forneca um link para a
+licenca. Atribuicao sugerida:
+
+    Brom, P. C.; Souza, D. S. de. Brasil em Orbita: Indice de Dependencia
+    Municipal (IDM). 2026. Documentacao sob CC BY 4.0.
+
+
+3. ARTEFATOS DE DADO DERIVADOS  ---  todos os direitos reservados
+
+Os arquivos de dados/ nao sao dado publico bruto: sao o resultado do
+processamento dos autores sobre as bases da secao 1, incluindo o calculo do
+indice, a reconciliacao da presenca de servico, a agregacao por regiao
+funcional e a leitura automatica por municipio.
+
+Sao publicados para permitir CONSULTA, CONFERENCIA E VERIFICACAO INDEPENDENTE
+dos numeros divulgados, finalidade para a qual o uso e livre, inclusive citando
+e reproduzindo valores pontuais em analise, reportagem ou pesquisa, com credito.
+
+Ficam RESERVADOS, dependendo de licenca expressa e previa dos autores:
+
+  a) a redistribuicao dos arquivos, integral ou substancial, em qualquer meio;
+  b) a incorporacao a produto, servico ou base de terceiros;
+  c) qualquer exploracao comercial.
+
+Esta reserva alcanca a compilacao e a sua organizacao, nao os fatos publicos
+subjacentes: quem reimplementar o metodo a partir da documentacao e das fontes
+oficiais produz base propria, sobre a qual estes termos nao incidem.
+
+
+4. SOFTWARE  ---  nao distribuido, todos os direitos reservados
+
+O software que produz e apresenta estes artefatos, a saber o pipeline de
+processamento em Python, a camada de geracao da leitura automatica e o painel
+web, NAO integra este repositorio e NAO e licenciado por estes termos. Permanece
+integralmente com os autores.
+
+A execucao do painel publico entrega ao navegador o codigo compilado da
+interface, como e proprio de qualquer aplicacao web. Isso nao constitui licenca:
+uso, copia, modificacao, engenharia reversa ou exploracao comercial desse codigo
+dependem de autorizacao expressa.
+
+
+5. CONTATO PARA LICENCIAMENTO
+
+Para redistribuicao dos artefatos de dado, uso comercial ou licenciamento do
+software, procure os autores pelos perfis indicados em "Sobre este painel", no
+proprio painel publico.
+
+
+6. AUSENCIA DE GARANTIA
+
+O material e fornecido no estado em que se encontra, sem garantia de qualquer
+especie, expressa ou implicita. Os autores nao respondem por decisao tomada com
+base nele. O indice e descritivo e nao avalia gestao publica.

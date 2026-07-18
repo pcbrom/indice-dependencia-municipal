@@ -1,0 +1,7 @@
+# Bases brutas, fora do controle de versao (os artefatos publicados vivem em dados/)
+data/raw/
+data/processed/
+
+# Sistema
+.DS_Store
+Thumbs.db
