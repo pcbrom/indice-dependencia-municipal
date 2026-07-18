@@ -1,5 +1,7 @@
 # Brasil em Órbita: Índice de Dependência Municipal (IDM)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21431702.svg)](https://doi.org/10.5281/zenodo.21431702)
+
 Observatório interativo que classifica cada município brasileiro por sua função na rede urbana, cruza essa função com a dependência fiscal e a concentração de serviços, e sintetiza tudo em um Índice de Dependência Municipal (IDM). Reúso integrado de dados abertos federais (IBGE, Tesouro Nacional, DATASUS, INEP e Banco Central).
 
 O painel está publicado em **https://idm.pcbrom.com**.
@@ -31,6 +33,23 @@ A definição do problema está em [docs/PROBLEMA.md](docs/PROBLEMA.md); a defin
 ## Reprodutibilidade
 
 Os artefatos em `dados/` são gerados a partir de bases oficiais datadas e publicados por inteiro, não em amostra. Cada número rastreia a uma base com data de extração declarada no manifesto de proveniência, e o método que o produz está especificado em `docs/` com detalhe suficiente para reimplementação independente.
+
+## Como citar
+
+O DOI de conceito abaixo resolve sempre para a versão mais recente; para citar
+exatamente esta versão, use `10.5281/zenodo.21431703`.
+
+```bibtex
+@dataset{brom_souza_2026_idm,
+  title     = {Brasil em Órbita: Índice de Dependência Municipal (IDM)},
+  author    = {Brom, Pedro Carvalho and Souza, Daniel Soares de},
+  year      = {2026},
+  publisher = {Zenodo},
+  version   = {0.1.0},
+  doi       = {10.5281/zenodo.21431702},
+  url       = {https://doi.org/10.5281/zenodo.21431702}
+}
+```
 
 ## Licença
 
