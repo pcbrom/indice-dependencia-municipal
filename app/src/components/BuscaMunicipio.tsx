@@ -59,6 +59,7 @@ export function BuscaMunicipio({ onSelect }: BuscaMunicipioProps) {
       >
         <Search size={18} aria-hidden style={{ color: "var(--ink-muted)" }} />
         <input
+          id="busca-municipio"
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}

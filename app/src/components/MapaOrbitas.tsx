@@ -991,7 +991,7 @@ export function MapaOrbitas({
 
   // Combined filter applied to the GL layer, not to the loaded data: tipologia
   // chips toggle a native maplibre filter (docs/DASHBOARD.md 5.1 e 5.4,
-  // "tipologia como filtro, nao como marca"), and the M2 refinement (UF, faixa
+  // "tipologia como filtro, nao como marca"), and the later refinement (UF, faixa
   // de IDM, porte) reuses the same in-memory predicate as every other screen
   // (lib/data filtrarMunicipios) instead of duplicating the criteria as a
   // second maplibre expression. When nothing is filtered out, the layer

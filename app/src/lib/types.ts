@@ -57,7 +57,7 @@ export interface Ligacao {
   destino_ibge: string;
   uf_origem: string;
   // Service dimension of the link. Not yet published by the pipeline (a REGIC
-  // link carries multiple service flags); the service filter lands in M3.
+  // link carries multiple service flags); a service filter is not implemented.
   tipo_servico?: TipoServico;
 }
 

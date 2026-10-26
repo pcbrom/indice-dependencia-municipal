@@ -19,13 +19,15 @@ import pandas as pd
 
 from idm_pipeline import (
     finbra,
-    idhm as idhm_mod,
     idm_core,
     manifesto,
     pib,
     populacao,
     regic,
     servicos,
+)
+from idm_pipeline import (
+    idhm as idhm_mod,
 )
 from idm_pipeline.schemas import MUNICIPIO_FIELDS
 
@@ -78,7 +80,7 @@ def _load_acesso_presenca(acesso_dir: Path) -> dict[str, dict[str, bool]]:
     """Effective-access presence used to widen (never narrow) the service flags.
 
     The access layer (built by the extrair_acesso_* scripts) measures presence
-    with newer and broader sources than the Etapa 0 flags: ICU beds (CNES leitos)
+    with newer and broader sources than the base presence flags: ICU beds (CNES leitos)
     for high-complexity health and in-person courses (INEP censup) for higher
     education. A municipality with an ICU necessarily has high-complexity care,
     and one with an in-person course necessarily retains higher education, so the
@@ -132,7 +134,9 @@ def assemble(
     return municipios, ligacoes, cobertura, universo
 
 
-def write_validation(municipios: pd.DataFrame, ligacoes: pd.DataFrame, out_dir: Path) -> idm_core.ValidationReport:
+def write_validation(
+    municipios: pd.DataFrame, ligacoes: pd.DataFrame, out_dir: Path
+) -> idm_core.ValidationReport:
     report = idm_core.validate(
         idm=municipios["idm"],
         populacao=municipios["populacao"],
@@ -143,10 +147,13 @@ def write_validation(municipios: pd.DataFrame, ligacoes: pd.DataFrame, out_dir: 
     )
     # verifiable cases: REGIC links resolve to municipalities in M
     codes = set(municipios["codigo_ibge"])
-    dangling = int((~ligacoes["origem_ibge"].isin(codes)).sum() + (~ligacoes["destino_ibge"].isin(codes)).sum())
-    # External descriptive validation against the IDHM (context layer). Hardened
-    # per the adversarial debate: partial Spearman controlling population,
-    # per-axis decomposition, bootstrap, stratification, no p-values.
+    dangling = int(
+        (~ligacoes["origem_ibge"].isin(codes)).sum()
+        + (~ligacoes["destino_ibge"].isin(codes)).sum()
+    )
+    # External descriptive validation against the IDHM (context layer): partial
+    # Spearman controlling population, per-axis decomposition, bootstrap,
+    # stratification, no p-values.
     idm_idhm = idm_core.idm_idhm_report(
         idm=municipios["idm"],
         idhm=municipios["idhm"],
@@ -162,7 +169,10 @@ def write_validation(municipios: pd.DataFrame, ligacoes: pd.DataFrame, out_dir: 
         "n_municipios": report.n_municipios,
         "spearman_idm_log_pop": _json_safe(report.spearman_idm_log_pop),
         "stratify_by_porte": report.stratify_by_porte,
-        "corr_eixos": {k: {kk: _json_safe(vv) for kk, vv in v.items()} for k, v in report.corr_eixos.to_dict().items()},
+        "corr_eixos": {
+            k: {kk: _json_safe(vv) for kk, vv in v.items()}
+            for k, v in report.corr_eixos.to_dict().items()
+        },
         "n_receita_maior_pib": report.n_receita_maior_pib,
         "n_ligacoes": int(len(ligacoes)),
         "ligacoes_dangling": dangling,

@@ -12,9 +12,6 @@ interface NavProps {
   lead?: string;
   // Optional second line under the lead (the map's thesis).
   subLead?: string;
-  // Citable identifier of the dataset behind the panel, shown beside the
-  // subtitle so the reader meets it at the top, not only in the about box.
-  doi?: string;
 }
 
 interface ItemRota {
@@ -33,12 +30,14 @@ const itens: ItemRota[] = [
   { rota: "fiscal", caminho: "/fiscal", rotulo: "Eixo fiscal" },
   { rota: "ranking", caminho: "/ranking", rotulo: "Ranking" },
   { rota: "cenarios", caminho: "/cenarios", rotulo: "Brasil em Cenários" },
+  { rota: "metodologia", caminho: "/metodologia", rotulo: "Metodologia" },
 ];
 
-// Persistent navigation bar on every screen. Carries the theme toggle and the
-// methodology link. rotaAtiva is accepted for callers that drive highlight
-// state directly; NavLink also derives the active route from the URL.
-export function Nav({ rotaAtiva, lead, subLead, doi }: NavProps) {
+// Persistent navigation bar on every screen: the lead, one row of tabs, the tour
+// and the theme toggle. The citable DOI lives in "Sobre este painel" and in the
+// methodology, keeping the bar light. rotaAtiva is accepted for callers that
+// drive highlight state directly; NavLink also derives it from the URL.
+export function Nav({ rotaAtiva, lead, subLead }: NavProps) {
   return (
     <header
       style={{
@@ -66,24 +65,7 @@ export function Nav({ rotaAtiva, lead, subLead, doi }: NavProps) {
           />
           <div>
           <h1 className="nav-lead-titulo">{lead}</h1>
-          {subLead && (
-            <span className="nav-lead-sub">
-              {subLead}
-              {doi && (
-                <>
-                  {" "}
-                  <a
-                    href={`https://doi.org/${doi}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: "var(--ink-muted)", textDecoration: "underline" }}
-                  >
-                    DOI {doi}
-                  </a>
-                </>
-              )}
-            </span>
-          )}
+          {subLead && <span className="nav-lead-sub">{subLead}</span>}
           </div>
         </div>
       )}
@@ -121,13 +103,6 @@ export function Nav({ rotaAtiva, lead, subLead, doi }: NavProps) {
 
       <BotaoTour />
       <ChipFoco />
-      <NavLink
-        to="/metodologia"
-        data-tour="nav-metodologia"
-        style={{ fontSize: "var(--text-body)", color: "var(--ink-secondary)" }}
-      >
-        metodologia
-      </NavLink>
       <ThemeToggle />
     </header>
   );

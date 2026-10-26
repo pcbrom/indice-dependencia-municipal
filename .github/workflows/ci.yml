@@ -1,0 +1,48 @@
+# Continuous integration of the public repository: the IDM formula tests, lint,
+# the reproduction check of the published artifact and the panel build.
+
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request: {}
+
+permissions:
+  contents: read
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - name: Install
+        working-directory: pipeline
+        run: uv sync --extra dev
+      - name: Lint
+        working-directory: pipeline
+        run: uv run ruff check .
+      - name: Formula tests
+        working-directory: pipeline
+        run: uv run pytest
+      - name: Reproduce the published IDM from dados/municipios.json
+        run: uv run --project pipeline python pipeline/exemplos/recalcular_idm.py --municipios dados/municipios.json
+
+  painel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Published artifacts as panel data
+        run: cp -r dados app/public/data
+      - name: Install
+        working-directory: app
+        run: bun install --frozen-lockfile
+      - name: Typecheck and build
+        working-directory: app
+        run: bun run build

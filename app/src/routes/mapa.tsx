@@ -212,7 +212,7 @@ export default function Mapa() {
     [municipios, filtros],
   );
 
-  // Chip counts react to the UF/porte/faixa de IDM filters (M2 refinement)
+  // Chip counts react to the UF/porte/faixa de IDM filters
   // but not to the tipologia toggle itself, otherwise turning a class off
   // would zero its own count.
   const baseParaContagem = useMemo(
@@ -305,11 +305,20 @@ export default function Mapa() {
               <strong>{formatarPopulacao(destaques.dependentes.populacao)} de habitantes</strong>
               {" "}dependem de outra cidade para hospital, faculdade e banco.
             </p>
-            <p className="mapa-manchete-uso">
-              Busque uma cidade para ver o caso dela: de quem depende, o que lhe
-              falta e o que o gestor pode examinar, com relatório de uma página
-              para baixar e levar à reunião.
-            </p>
+            <div className="mapa-manchete-passos">
+              <button
+                type="button"
+                className="mapa-manchete-comece"
+                onClick={() => document.getElementById("busca-municipio")?.focus()}
+              >
+                Comece pela sua cidade
+              </button>
+              <ol aria-label="Como usar">
+                <li>busque o município</li>
+                <li>veja de quem ele depende e o que lhe falta</li>
+                <li>baixe o relatório de uma página</li>
+              </ol>
+            </div>
             <p className="mapa-manchete-fonte">
               fonte: REGIC {manifesto?.ano_base_regic ?? 2018} e População Estimada, IBGE
             </p>

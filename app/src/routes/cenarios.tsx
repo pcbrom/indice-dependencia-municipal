@@ -398,7 +398,7 @@ export default function Cenarios() {
             ) : regiaoSel ? (
               <CartoesUF regiao={regiaoSel} bloco={analise.regioes[regiaoSel]} onEscolher={setUfSel} />
             ) : (
-              <CartoesRegiao analise={analise} onEscolher={setRegiaoSel} />
+              <CartoesRegiao analise={analise} nomes={nomePorCodigo} onEscolher={setRegiaoSel} />
             )}
           </div>
         </div>
@@ -499,14 +499,23 @@ function MiniLinha({ rotulo, valor, cor }: { rotulo: string; valor: string; cor?
 }
 
 // Level 1: the five macro-regions, each a card of totals.
-function CartoesRegiao({ analise, onEscolher }: { analise: AnaliseAgregacao; onEscolher: (r: string) => void }) {
+function CartoesRegiao({
+  analise,
+  nomes,
+  onEscolher,
+}: {
+  analise: AnaliseAgregacao;
+  nomes: Map<string, string>;
+  onEscolher: (r: string) => void;
+}) {
   const regioes = ORDEM_REGIOES.filter((r) => analise.regioes[r]);
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
       <Cabecalho
         titulo="Agregação por região funcional"
-        sub="Cada região funcional é um polo ou semipolo e os municípios que orbitam nele. Fundir na âncora mantém o centro de serviço. Escolha uma macrorregião."
+        sub="E se cada região funcional fosse um só município, com sede na cidade que já presta o serviço? Escolha uma macrorregião para descer até o estado e a região."
       />
+      <ComoLerAgregacao analise={analise} nomes={nomes} />
 
       <section
         style={{
@@ -529,6 +538,102 @@ function CartoesRegiao({ analise, onEscolher }: { analise: AnaliseAgregacao; onE
         </CartaoBotao>
       ))}
     </div>
+  );
+}
+
+// Reading guide for the aggregation cards: what a functional region is and what
+// each summary line measures, in the order the lines appear in ResumoLinhas.
+// Definitions mirror pipeline/construir_cenarios.py. The worked example reads a
+// real functional region from the artifact, so its figures never drift from the
+// cards; it is omitted if that region is absent from a regenerated artifact.
+const ANCORA_EXEMPLO = "3527207"; // Lorena (SP): small, consolidated seat, clear IDM drop
+
+function ComoLerAgregacao({ analise, nomes }: { analise: AnaliseAgregacao; nomes: Map<string, string> }) {
+  const exemplo = Object.values(analise.regioes)
+    .flatMap((r) => (r ? Object.values(r.ufs) : []))
+    .flatMap((u) => u?.regioes ?? [])
+    .find((rf) => rf.ancora === ANCORA_EXEMPLO);
+  const absorvidos = exemplo
+    ? exemplo.membros.filter((c) => c !== exemplo.ancora).map((c) => nomes.get(c)).filter(Boolean)
+    : [];
+  const item = (termo: string, texto: string) => (
+    <li>
+      <strong style={{ color: "var(--ink-primary)" }}>{termo}:</strong> {texto}
+    </li>
+  );
+  return (
+    <details
+      open
+      style={{
+        padding: "var(--space-2) var(--space-3)",
+        border: "1px solid var(--border)",
+        borderRadius: "var(--radius-card)",
+        background: "var(--surface-1)",
+        fontSize: "var(--text-caption)",
+        color: "var(--ink-secondary)",
+        lineHeight: 1.5,
+      }}
+    >
+      <summary style={{ cursor: "pointer", fontWeight: 600, color: "var(--ink-primary)" }}>
+        O que é e como ler
+      </summary>
+      <p style={{ margin: "var(--space-2) 0" }}>
+        Uma <strong style={{ color: "var(--ink-primary)" }}>região funcional</strong> é uma
+        cidade âncora, polo ou semipolo do REGIC, mais os municípios que dependem
+        dela para hospital, faculdade e banco. As 1.443 regiões cobrem o país
+        inteiro, e cada município está em exatamente uma. A análise pergunta o que
+        mudaria se cada região funcional fosse um só município, com sede na
+        âncora. É uma leitura estrutural e descritiva, não uma recomendação de
+        fusão.
+      </p>
+      <ul style={{ margin: 0, paddingLeft: "var(--space-4)", display: "flex", flexDirection: "column", gap: "var(--space-1)" }}>
+        {item(
+          "IDM médio, atual → simulado",
+          "dependência média ponderada pela população, hoje e na simulação, em que cada região passa a ter o IDM da sua âncora. Quanto maior a queda, mais dependência a rede urbana já resolve na âncora.",
+        )}
+        {item(
+          "orbitantes que reduzem dependência",
+          "municípios que seriam absorvidos pela âncora da sua região.",
+        )}
+        {item(
+          "regiões que agregam e municípios sem região",
+          "regiões em que a âncora absorve ao menos um município, e municípios que não orbitam nenhum outro e por isso ficam como estão.",
+        )}
+        {item(
+          "máquina hoje",
+          "despesa atual com as funções Legislativa e Administração (Siconfi, DCA 2024).",
+        )}
+        {item(
+          "FPM redistribuído no estado",
+          "o Fundo de Participação dos Municípios é um valor fixo por estado, então o que a região fundida deixaria de receber volta aos demais municípios do mesmo estado. Não é economia da União.",
+        )}
+        {item(
+          "economia potencial",
+          "faixa entre o piso, só as câmaras municipais suprimidas, e o teto, que soma a administração dos municípios absorvidos. Parte da administração é permanente, então o valor real fica abaixo do teto.",
+        )}
+        {item(
+          "centro de serviço na sede",
+          "nas regiões que agregam, o acesso efetivo na âncora. Consolidado: tem UTI, curso superior presencial e agência bancária. Parcial: tem o equipamento sem o acesso completo, como hospital sem UTI, faculdade só a distância ou correspondente sem agência. Ausente: não tem hospital, faculdade nem banco.",
+        )}
+      </ul>
+      {exemplo && absorvidos.length > 0 && (
+        <p style={{ margin: "var(--space-2) 0 0" }}>
+          <strong style={{ color: "var(--ink-primary)" }}>Exemplo:</strong> a região
+          funcional de {exemplo.ancora_nome} ({exemplo.uf}) reúne {exemplo.ancora_nome}{" "}
+          e {absorvidos.join(", ").replace(/, ([^,]*)$/, " e $1")}, com{" "}
+          {exemplo.populacao.toLocaleString("pt-BR")} habitantes. Se fosse um só
+          município, o IDM médio cairia de {idm2(exemplo.idm_atual)} para{" "}
+          {idm2(exemplo.idm_simulado)}
+          {exemplo.estrutura.nivel === "preservada"
+            ? ", e a sede tem UTI, curso presencial e agência bancária, um centro de serviço consolidado"
+            : ""}
+          . A máquina pública custa hoje {reaisCompacto(exemplo.maquina)}{" "}
+          por ano, a economia potencial fica entre {reaisCompacto(exemplo.economia_piso)}{" "}
+          e {reaisCompacto(exemplo.economia_teto)}, e {reaisCompacto(exemplo.perda)} de
+          FPM passariam aos demais municípios de {exemplo.uf}.
+        </p>
+      )}
+    </details>
   );
 }
 

@@ -388,7 +388,7 @@ export interface QuadranteFiscal {
   rotulo: string;
 }
 
-function medianaNumeros(valores: number[]): number {
+export function medianaNumeros(valores: number[]): number {
   if (valores.length === 0) return 0;
   const ord = [...valores].sort((a, b) => a - b);
   const meio = Math.floor(ord.length / 2);

@@ -3,6 +3,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21431702.svg)](https://doi.org/10.5281/zenodo.21431702)
 [![Código: MIT](https://img.shields.io/badge/c%C3%B3digo-MIT-blue.svg)](LICENSE)
 [![Dados e documentação: CC BY 4.0](https://img.shields.io/badge/dados%20e%20docs-CC%20BY%204.0-lightgrey.svg)](LICENSE-DADOS.md)
+[![CI](https://github.com/pcbrom/indice-dependencia-municipal/actions/workflows/ci.yml/badge.svg)](https://github.com/pcbrom/indice-dependencia-municipal/actions/workflows/ci.yml)
 
 Observatório interativo que classifica cada município brasileiro por sua função na rede urbana, cruza essa função com a dependência fiscal e a concentração de serviços, e sintetiza tudo em um Índice de Dependência Municipal (IDM). Reúso integrado de dados abertos federais (IBGE, Tesouro Nacional, DATASUS, INEP e Banco Central).
 
@@ -36,6 +37,30 @@ uv run python build.py --raw ../data/raw --out ../app/public/data
 uv run pytest
 ```
 
+## Usar como biblioteca
+
+A fórmula do índice é um módulo puro, sem entrada nem saída de arquivos, instalável à parte:
+
+```bash
+pip install "git+https://github.com/pcbrom/indice-dependencia-municipal#subdirectory=pipeline"
+```
+
+```python
+import pandas as pd
+from idm_pipeline import idm_core
+
+df = pd.read_json("dados/municipios.json")
+idm = idm_core.compute_idm_frame(df, weights=(0.5, 0.25, 0.25))
+```
+
+O exemplo [pipeline/exemplos/recalcular_idm.py](pipeline/exemplos/recalcular_idm.py) usa o artefato publicado, sem nenhuma base bruta, de três modos: reproduz o IDM publicado sem diferença, recalcula com pesos alternativos e compara as ordenações, e normaliza dentro de uma UF para uma leitura estadual. A reprodução roda no CI a cada mudança, junto dos testes da fórmula e do build do painel.
+
+```bash
+uv run --project pipeline python pipeline/exemplos/recalcular_idm.py                      # reproduz o IDM publicado
+uv run --project pipeline python pipeline/exemplos/recalcular_idm.py --pesos 0.5,0.25,0.25  # pesos alternativos
+uv run --project pipeline python pipeline/exemplos/recalcular_idm.py --uf PE               # recorte estadual
+```
+
 ## Documentação
 
 A definição do problema está em [docs/PROBLEMA.md](docs/PROBLEMA.md) e a definição formal do índice em [docs/IDM_SPEC.md](docs/IDM_SPEC.md). As fontes, com data de extração e cobertura, estão em [docs/DADOS.md](docs/DADOS.md), e o formato dos artefatos em [docs/CONTRATO_DADO.md](docs/CONTRATO_DADO.md). As decisões de método que afetam a leitura dos números estão em [docs/DECISAO_CAUSAL.md](docs/DECISAO_CAUSAL.md) (postura descritiva), [docs/DECISAO_ACESSO.md](docs/DECISAO_ACESSO.md) (acesso efetivo no eixo de serviços) e [docs/DECISAO_CENARIOS.md](docs/DECISAO_CENARIOS.md) (agregação por região funcional). A camada de leitura automática está em [docs/INTERPRETACAO.md](docs/INTERPRETACAO.md), e o sistema visual do painel em [docs/TOKENS.md](docs/TOKENS.md) e [docs/COMPONENTES.md](docs/COMPONENTES.md). Alguns comentários do código citam documentos de planejamento de interface que não integram este repositório; nenhum deles é necessário para executar o código ou reproduzir os números.
@@ -54,7 +79,7 @@ O DOI de conceito abaixo resolve sempre para a versão mais recente. O DOI de ca
   author    = {Brom, Pedro Carvalho and Souza, Daniel Soares de},
   year      = {2026},
   publisher = {Zenodo},
-  version   = {0.2.0},
+  version   = {0.2.1},
   doi       = {10.5281/zenodo.21431702},
   url       = {https://doi.org/10.5281/zenodo.21431702}
 }

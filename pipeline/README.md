@@ -26,6 +26,7 @@ pipeline/
   extrair_acesso_*.py     <- effective-access context layers (health, education, banking)
   extrair_despesa_funcao.py, construir_cenarios.py <- "Brasil em Cenarios" artifacts
   estratos_idhm.py        <- prints the stratified IDM x IDHM validation figures
+  exemplos/               <- library usage on the published artifact
   tests/                  <- unit tests of the formula on synthetic data
 ```
 
@@ -52,3 +53,26 @@ uv run --project pipeline python pipeline/construir_cenarios.py
 
 The same build runs in a container through `pipeline/Dockerfile`. Nothing runs on
 import; every script guards execution under `if __name__ == "__main__"`.
+
+## Use as a library
+
+The index formula is a pure, IO-free module, installable on its own:
+
+```
+pip install "git+https://github.com/pcbrom/indice-dependencia-municipal#subdirectory=pipeline"
+```
+
+```python
+import pandas as pd
+from idm_pipeline import idm_core
+
+# columns: distancia_polo_km, fpm, receita_total, pib, tem_hospital_mac, tem_ies
+df = pd.read_json("dados/municipios.json")
+idm = idm_core.compute_idm_frame(df, weights=(0.5, 0.25, 0.25))
+```
+
+[`exemplos/recalcular_idm.py`](exemplos/recalcular_idm.py) shows three uses on the
+published artifact, with no raw data: it reproduces the published IDM exactly,
+recomputes it with alternative weights and compares the rankings, and restricts
+the percentile normalization to one state for a state-level reading. The first
+use runs in CI as a reproduction check.

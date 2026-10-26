@@ -66,6 +66,12 @@ Cada script aceita `--help` com os caminhos de entrada e saída. Os testes da f�
 cd pipeline && uv run pytest
 ```
 
+E a conferência de reprodução, que recalcula o IDM de `dados/municipios.json` com a fórmula de `idm_core` e falha se houver qualquer diferença para o valor publicado:
+
+```bash
+uv run --project pipeline python pipeline/exemplos/recalcular_idm.py
+```
+
 > **Confira:** os arquivos gerados em `app/public/data/` coincidem com os de `dados/`, e `manifesto.json` registra a cobertura de 98,98%.
 
 ### Em contêiner

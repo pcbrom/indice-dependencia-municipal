@@ -19,7 +19,7 @@ export const REPOSITORIO = "https://github.com/pcbrom/indice-dependencia-municip
 // Title shown as the nav lead per screen (the map carries the product title,
 // with the thesis as its subtitle).
 const LEAD_ROTA: Record<Rota, string> = {
-  mapa: "Índice de Dependência Municipal (IDM): a geografia real dos serviços no Brasil.",
+  mapa: "Brasil em Órbita: Índice de Dependência Municipal",
   municipio: "Meu município",
   fiscal: "Eixo fiscal",
   cenarios: "Brasil em Cenários",
@@ -51,7 +51,7 @@ export function App() {
   const lead = LEAD_ROTA[rota];
   const subLead =
     rota === "mapa"
-      ? "Mais de 4 mil cidades dependem de outra para hospital, faculdade e banco."
+      ? "A geografia real dos serviços no Brasil."
       : rota === "cenarios"
         ? "Análise da agregação municipal por região funcional, região e UF; não é recomendação."
         : undefined;
@@ -62,7 +62,7 @@ export function App() {
           <a href="#conteudo" className="skip-link">
             Pular para o conteúdo
           </a>
-          <Nav rotaAtiva={rota} lead={lead} subLead={subLead} doi={rota === "mapa" ? DOI_CONCEITO : undefined} />
+          <Nav rotaAtiva={rota} lead={lead} subLead={subLead} />
           <main
             id="conteudo"
             tabIndex={-1}

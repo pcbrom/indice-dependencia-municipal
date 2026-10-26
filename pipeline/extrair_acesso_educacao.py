@@ -52,7 +52,9 @@ ENCODING = "latin-1"
 CSV_SUFFIX = "MICRODADOS_CADASTRO_CURSOS_{ano}.CSV"
 
 
-def _open_stream(zip_path: Path | None, csv_path: Path | None, ano: int) -> tuple[Iterator[str], object]:
+def _open_stream(
+    zip_path: Path | None, csv_path: Path | None, ano: int
+) -> tuple[Iterator[str], object]:
     """Return (line iterator, closeable handle) for the cursos CSV, reading it
     from the ZIP without extracting, or from a standalone CSV path."""
     if csv_path is not None:

@@ -217,7 +217,7 @@ def idm_idhm_report(
 ) -> dict:
     """External descriptive validation of the IDM against the IDHM.
 
-    Hardened per the adversarial debate: reports the raw Spearman AND the partial
+    Reports the raw Spearman AND the partial
     Spearman controlling for log-population (the common size confounder), the
     per-axis decomposition so the reader sees which axes carry the association
     independently of the confounder, bootstrap confidence intervals, and a

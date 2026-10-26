@@ -6,6 +6,7 @@ import {
   carregarManifesto,
   formatarInteiro,
   formatarPercentual,
+  rotuloPorte,
 } from "../lib/data";
 import type { AcessoMunicipio, AnaliseAgregacao } from "../lib/data";
 import { cenarioDoMunicipio } from "../lib/cenario";
@@ -13,6 +14,7 @@ import { resumoDeterministico, rotuloDistancia, servicosLegiveis } from "../lib/
 import { rotuloPolo } from "../lib/rede";
 import { useInterpretacao } from "../lib/interpretacao";
 import type { Manifesto, Municipio } from "../lib/types";
+import { ComparacaoPares } from "./ComparacaoPares";
 import { notaDaLeitura } from "./LeituraAutomatica";
 
 // One-page municipal report, rendered only for print (window.print -> PDF), the
@@ -176,6 +178,11 @@ export function RelatorioMunicipio({
             <dd>{servicosLegiveis(m, acesso).join("; ")}</dd>
           </div>
         </dl>
+      </section>
+
+      <section className="relatorio-pares">
+        <h2>Frente aos municípios do mesmo porte ({rotuloPorte(m.porte_faixa)}), pela mediana</h2>
+        <ComparacaoPares municipio={m} municipios={municipios} compacto />
       </section>
 
       {rf && cenario && (

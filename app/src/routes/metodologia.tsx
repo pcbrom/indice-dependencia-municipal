@@ -319,8 +319,11 @@ export default function Metodologia() {
           <li>
             <strong style={{ color: "var(--ink-primary)" }}>Serviços, proxy do CNES.</strong>{" "}
             A presença de hospital geral ou especializado ativo é usada como
-            proxy de média e alta complexidade; o refinamento por leitos de UTI
-            e serviços de alta complexidade fica para o estágio M2.
+            proxy de média e alta complexidade. A camada de acesso efetivo amplia
+            essa presença, nunca a reduz: município com leito de UTI no CNES conta
+            como tendo alta complexidade, e município com curso superior
+            presencial no Censo da Educação Superior conta como retendo ensino
+            superior.
           </li>
           <li>
             <strong style={{ color: "var(--ink-primary)" }}>Fiscal, PIB de 2023.</strong>{" "}

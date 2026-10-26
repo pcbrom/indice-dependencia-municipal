@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { carregarAcesso, formatarPercentual, rotuloPorte } from "../lib/data";
 import type { AcessoMunicipio } from "../lib/data";
 import { useInterpretacao } from "../lib/interpretacao";
+import { ComparacaoPares } from "./ComparacaoPares";
 import { LeituraFatia } from "./LeituraAutomatica";
 import type { Ligacao, Municipio } from "../lib/types";
 import type { SecaoDetalhe } from "./DetalheMunicipio";
@@ -249,6 +250,10 @@ export function PainelPolo({
           Dependência alta não é nota baixa de gestão; reflete a posição da
           cidade na rede urbana e as regras de repasse federais.
         </p>
+      </SecaoPainel>
+
+      <SecaoPainel titulo="Frente ao mesmo porte">
+        <ComparacaoPares municipio={municipio} municipios={municipios} compacto />
       </SecaoPainel>
 
       <nav

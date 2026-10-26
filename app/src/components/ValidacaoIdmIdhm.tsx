@@ -36,9 +36,9 @@ function intervalo(ic: (number | null)[], casas = 2): string {
 // External descriptive validation of the IDM against the IDHM. Lives only in the
 // methodology screen, apart from the municipal datum and from the third-party
 // literature card. Never labelled "validade convergente" (the two indices are
-// not independent) and never causal: it reports an association, hardened per the
-// adversarial debate with a partial correlation controlling population and a
-// per-axis decomposition (docs/DECISAO_CONTEXTO.md, docs/DECISAO_CAUSAL.md).
+// not independent) and never causal: it reports an association, with a partial
+// correlation controlling population and a per-axis decomposition
+// (docs/DECISAO_CAUSAL.md).
 export function ValidacaoIdmIdhm({
   dados,
   municipios,

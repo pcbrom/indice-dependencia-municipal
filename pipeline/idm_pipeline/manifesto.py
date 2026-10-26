@@ -1,7 +1,7 @@
 """Provenance manifest for the published artifacts.
 
 Weights come from idm_core (single source of truth); coverage is the measured
-validos/universo from the Etapa 0 gate; source entries carry the real extraction
+validos/universo from the completeness gate; source entries carry the real extraction
 date, download URL, catalog URL and use. An artifact without a manifest entry is
 not published (CONTRATO_DADO.md). No secrets.
 """
@@ -14,7 +14,7 @@ from idm_pipeline.idm_core import DEFAULT_WEIGHTS
 
 COVERAGE_FLOOR = 0.90
 EXTRACAO = "2026-07-03"
-# Context layer (v0.2.0) collected later than the core Etapa 0 sources.
+# Context layer (v0.2.0) collected later than the core sources.
 EXTRACAO_CONTEXTO = "2026-07-04"
 # Effective-access layer (hospital -> UTI, IES -> presencial, banco -> agencia).
 EXTRACAO_ACESSO = "2026-07-08"
@@ -92,7 +92,10 @@ FONTES = [
         "data_extracao": EXTRACAO_ACESSO,
         "url_download": "https://download.inep.gov.br/microdados/microdados_censo_da_educacao_superior_2024.zip",
         "url_catalogo": "https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/censo-da-educacao-superior",
-        "uso": "modalidade do curso de graduação (presencial x a distância); o curso presencial reconcilia a presença de ensino superior no eixo de serviços",
+        "uso": (
+            "modalidade do curso de graduação (presencial x a distância); o curso presencial "
+            "reconcilia a presença de ensino superior no eixo de serviços"
+        ),
     },
     {
         "nome": "Informes de agências e correspondentes",
@@ -101,7 +104,10 @@ FONTES = [
         "data_extracao": EXTRACAO_ACESSO,
         "url_download": "https://olinda.bcb.gov.br/olinda/servico/Informes_Agencias/versao/v1/odata/Agencias",
         "url_catalogo": "https://dadosabertos.bcb.gov.br/",
-        "uso": "presença de agência bancária, distinta de correspondente, na camada de contexto de acesso",
+        "uso": (
+            "presença de agência bancária, distinta de correspondente, na camada de contexto "
+            "de acesso"
+        ),
     },
     {
         "nome": "DCA Anexo I-E (despesa por função)",
@@ -110,7 +116,10 @@ FONTES = [
         "data_extracao": "2026-07-06",
         "url_download": "https://apidatalake.tesouro.gov.br/ords/siconfi/tt/dca",
         "url_catalogo": "https://dados.gov.br/dataset/dcam",
-        "uso": "despesa das funções Legislativa e Administração, custo da máquina na análise de agregação",
+        "uso": (
+            "despesa das funções Legislativa e Administração, custo da máquina na análise de "
+            "agregação"
+        ),
     },
     {
         "nome": "Malha municipal",
@@ -137,7 +146,10 @@ FONTES = [
         "data_extracao": EXTRACAO_CONTEXTO,
         "url_download": "http://www.ipeadata.gov.br/api/odata4/ValoresSerie(SERCODIGO='ADH_IDHM')",
         "url_catalogo": "https://dados.gov.br/dados/conjuntos-dados/atlasbrasil",
-        "uso": "camada de contexto e validação descritiva externa; referente de desenvolvimento, nunca eixo do IDM; base do Censo 2010",
+        "uso": (
+            "camada de contexto e validação descritiva externa; referente de "
+            "desenvolvimento, nunca eixo do IDM; base do Censo 2010"
+        ),
     },
 ]
 

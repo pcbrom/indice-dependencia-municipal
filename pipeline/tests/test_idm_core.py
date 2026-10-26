@@ -15,7 +15,6 @@ import pytest
 
 from idm_pipeline import idm_core
 
-
 # --- percentile_rank ---------------------------------------------------------
 
 

@@ -19,7 +19,9 @@ _TRUE = {"true", "1", "sim", "t", "verdadeiro", "yes"}
 def _read_flag(pattern: str, raw_dir: Path, col: str) -> pd.DataFrame:
     matches = sorted(glob.glob(str(raw_dir / pattern)))
     if not matches:
-        return pd.DataFrame({"codigo_ibge": pd.Series(dtype="string"), col: pd.Series(dtype="bool")})
+        return pd.DataFrame(
+            {"codigo_ibge": pd.Series(dtype="string"), col: pd.Series(dtype="bool")}
+        )
     df = pd.read_csv(matches[-1], sep=";", dtype=str)
     df["codigo_ibge"] = df["codigo_ibge"].map(ibge7)
     df[col] = df[col].astype(str).str.strip().str.lower().isin(_TRUE)

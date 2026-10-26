@@ -1,6 +1,6 @@
 """Municipal mesh: fetch the simplified IBGE GeoJSON and publish malha.geojson.
 
-The Etapa 0 gate measured the minimum-quality IBGE mesh at ~486 KB brotli, well
+A size check measured the minimum-quality IBGE mesh at ~486 KB brotli, well
 under the 2 MB budget, so a static simplified GeoJSON served to MapLibre GL is
 sufficient; PMTiles/tippecanoe is not needed for the base choropleth. Each
 feature is normalized to carry codigo_ibge (seven digits) for the client join.
