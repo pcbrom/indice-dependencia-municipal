@@ -5,3 +5,13 @@ data/processed/
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Codigo: dependencias, builds e caches locais
+node_modules/
+app/dist/
+app/.vite/
+app/public/data/
+.venv/
+pipeline/.venv/
+__pycache__/
+*.pyc

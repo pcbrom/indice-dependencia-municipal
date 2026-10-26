@@ -1,0 +1,839 @@
+/*
+ * Global baseline. Layout primitives and resets only; every value routes
+ * through a token from tokens.css. No literal color or spacing here.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--surface-page);
+  color: var(--ink-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  font-weight: var(--weight-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* The page never scrolls horizontally; wide content scrolls inside its box. */
+  overflow-x: hidden;
+}
+
+/* One type hierarchy applied by role. Sizes are the default for each heading
+ * level; leading, weight and a slight negative tracking are consistent across
+ * every screen so the same level always reads the same. */
+h1,
+h2,
+h3 {
+  line-height: var(--leading-title);
+  font-weight: var(--weight-title);
+  letter-spacing: var(--tracking-title);
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--text-xl);
+}
+h2 {
+  font-size: var(--text-lg);
+}
+h3 {
+  font-size: var(--text-base);
+}
+
+/* Section label: the small caps role for a block heading inside a panel or the
+ * detail overlay, distinct from a page (h1) or section (h2) title. */
+.rotulo-secao {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-title);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+/* The map thesis headline: a lead, not a page title, so it stays at the section
+ * size even though it is the h1 of the screen. */
+.tipo-tese {
+  font-size: var(--text-lg);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* Visible focus ring on every interactive element (accessibility requirement). */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--accent);
+  outline-offset: var(--focus-ring-offset);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Tabular figures wherever numbers must align or stay steady while they change. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Map layout. Mobile-first: a single column where the search is the first
+ * child in the DOM, so it is the first element read on a narrow viewport
+ * (the "busca primeiro" invariant). On a wide viewport it becomes a grid with
+ * the search spanning the top and the filter aside beside the content. Full
+ * responsive tuning is deferred to M3; this only pins the invariant. */
+.mapa-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .mapa-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+    grid-template-areas:
+      "busca busca"
+      "filtros conteudo";
+    align-items: start;
+  }
+
+  .mapa-busca {
+    grid-area: busca;
+  }
+
+  .mapa-filtros {
+    grid-area: filtros;
+  }
+
+  .mapa-conteudo {
+    grid-area: conteudo;
+  }
+}
+
+/* Full-bleed map, fixed under the app nav, laid out as a column: a horizontal
+ * header band of controls, the map filling the middle, and a thin footer.
+ * --nav-altura is measured from the sticky header at runtime (routes/mapa.tsx)
+ * so the region starts exactly below the nav on any viewport. */
+.mapa-tela {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: var(--nav-altura, 56px);
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Secondary bar on the content screens: full width under the nav even though
+ * the screen content sits in a centered, padded column. Breaks out of main and
+ * cancels its top padding so it sits flush under the nav, matching the map. */
+.faixa-tela {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-top: calc(-1 * var(--space-5));
+  margin-bottom: var(--space-5);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-page);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.faixa-tela .mapa-cab-busca {
+  flex: 1 1 220px;
+  max-width: 360px;
+  min-width: 180px;
+}
+
+/* Nav lead: the screen title (and optional subtitle) at the far left of the nav
+ * bar; it grows to fill the left so the tabs, metodologia and the toggle sit
+ * together on the right. */
+.nav-lead {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav-lead-titulo {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: var(--weight-title);
+  letter-spacing: var(--tracking-title);
+  line-height: var(--leading-title);
+}
+
+.nav-lead-sub {
+  font-size: var(--text-caption);
+  color: var(--ink-secondary);
+  line-height: 1.35;
+}
+
+/* Header band: a single control faixa. The thesis lives in the nav bar now, so
+ * this band is just search, filters, legend, chips and the view toggle in one
+ * left-to-right strip, every control on a uniform height and baseline. */
+.mapa-cabecalho {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-page);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Headline band: the national dimension of dependency, in the first fold of the
+ * map. A thin accent-anchored strip above the control band; dismissible so a
+ * returning reader gets the full map height back. */
+.mapa-manchete {
+  flex: 0 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3) calc(var(--space-4) + var(--space-4)) var(--space-3) var(--space-4);
+  background: var(--surface-1);
+  border-left: 3px solid var(--accent);
+  border-bottom: 1px solid var(--border);
+}
+
+.mapa-manchete-frase {
+  margin: 0;
+  font-size: var(--text-base);
+  line-height: 1.4;
+  color: var(--ink-primary);
+}
+
+.mapa-manchete-frase strong {
+  font-weight: var(--weight-title);
+  color: var(--accent);
+}
+
+.mapa-manchete-uso {
+  margin: 0;
+  font-size: var(--text-body);
+  color: var(--ink-secondary);
+}
+
+.mapa-manchete-fonte {
+  margin: 0;
+  font-size: var(--text-caption);
+  color: var(--ink-muted);
+}
+
+.mapa-manchete-fechar {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-1, 4px);
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+}
+
+.mapa-manchete-fechar:hover {
+  background: color-mix(in srgb, var(--ink-muted) 14%, transparent);
+  color: var(--ink-secondary);
+}
+
+.mapa-cab-busca {
+  flex: 1 1 220px;
+  max-width: 360px;
+  min-width: 180px;
+}
+
+/* Inline compact field: label beside its control, all fields the same height. */
+.mapa-campo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-caption);
+  color: var(--ink-secondary);
+  white-space: nowrap;
+}
+
+.mapa-campo select,
+.mapa-campo input {
+  height: 34px;
+  padding: 0 var(--space-2);
+  background: var(--surface-1);
+  color: var(--ink-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  font-size: var(--text-body);
+}
+
+.mapa-campo input {
+  width: 58px;
+}
+
+.mapa-cab-legenda {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-caption);
+  color: var(--ink-muted);
+}
+
+.mapa-legenda-barra {
+  width: 110px;
+  height: var(--space-2);
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--idm-100), var(--idm-450), var(--idm-700));
+}
+
+
+/* Map fills the space between header and footer; the docks and overlays anchor
+ * to this positioned area. */
+.mapa-canvas-area {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.mapa-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.mapa-card {
+  background: color-mix(in srgb, var(--surface-1) 92%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-floating);
+  backdrop-filter: blur(6px);
+}
+
+/* Right dock: PainelPolo when a municipality is selected. Starts below the
+ * floating research button (top-right), whose live height is published as
+ * --fab-altura, so the two never overlap regardless of the button's size. */
+.mapa-dock-direita {
+  position: absolute;
+  top: calc(var(--space-3) + var(--fab-altura, 44px) + var(--space-3));
+  right: var(--space-4);
+  width: min(450px, calc(100vw - 2 * var(--space-4)));
+  max-height: calc(
+    100% - var(--space-3) - var(--fab-altura, 44px) - var(--space-3) - var(--space-4)
+  );
+  overflow-y: auto;
+}
+
+/* Table alternative: a large card over the map, starting below the floating
+ * summary and research button (--fab-altura) so they never overlap it. */
+.mapa-tabela-overlay {
+  position: absolute;
+  top: calc(var(--space-3) + var(--fab-altura, 44px) + var(--space-3));
+  bottom: var(--space-4);
+  left: var(--space-4);
+  right: var(--space-4);
+  z-index: 2;
+  overflow: auto;
+  padding: var(--space-4);
+}
+
+.mapa-vazio-centro {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(420px, calc(100vw - 2 * var(--space-4)));
+  padding: var(--space-4);
+  z-index: 2;
+}
+
+/* Recorte summary, floating and horizontally centered at the top of the map,
+ * level with the floating research button (top of the canvas area, which begins
+ * just below the control band). */
+.mapa-resumo-flutuante {
+  position: absolute;
+  top: var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  max-width: calc(100% - 2 * var(--space-4));
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface-1) 92%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-floating);
+}
+
+/* "sobre e fontes", floating at the map's bottom-right corner. */
+.mapa-sobre-flutuante {
+  position: absolute;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  z-index: 4;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface-1) 92%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-floating);
+  color: var(--accent);
+  font-size: var(--text-body);
+  cursor: pointer;
+}
+
+/* Consolidated city detail overlay over the map: a single scrollable dossier,
+ * the dimmed map staying mounted behind. Above the HUD (z 3) and the cluster
+ * bubbles, below nothing. */
+.detalhe-fundo {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: rgba(11, 11, 11, 0.45);
+}
+
+.detalhe-moldura {
+  display: flex;
+  flex-direction: column;
+  width: min(960px, 100%);
+  max-height: 90vh;
+  background: var(--surface-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-block);
+  box-shadow: var(--shadow-floating);
+  overflow: hidden;
+}
+
+.detalhe-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
+.detalhe-fechar {
+  display: inline-flex;
+  background: transparent;
+  border: none;
+  padding: var(--space-1);
+  color: var(--ink-secondary);
+  cursor: pointer;
+}
+
+.detalhe-corpo {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 var(--space-4);
+}
+
+.detalhe-colunas {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 var(--space-5);
+}
+
+@media (min-width: 720px) {
+  .detalhe-colunas {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.detalhe-coluna {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.detalhe-rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+/* Floating research-context button and the layer it opens. Below the detail
+ * overlays (z 20) so those cover it; above page content. */
+.fab-literatura {
+  position: fixed;
+  right: var(--space-4);
+  /* Below the nav on content screens; on the map, also below the control band
+   * (--mapa-cab-altura, unset elsewhere) so it clears the chips and the toggle. */
+  top: calc(var(--nav-altura, 60px) + var(--mapa-cab-altura, 0px) + var(--space-3));
+  z-index: 15;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  color: var(--ink-primary);
+  box-shadow: var(--shadow-floating);
+  cursor: pointer;
+  font-size: var(--text-body);
+}
+
+.literatura-layer {
+  position: relative;
+  width: min(760px, 100%);
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--surface-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-block);
+  box-shadow: var(--shadow-floating);
+  padding: var(--space-4);
+}
+
+.literatura-fechar {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  display: inline-flex;
+  background: transparent;
+  border: none;
+  padding: var(--space-1);
+  color: var(--ink-secondary);
+  cursor: pointer;
+}
+
+@media (max-width: 520px) {
+  /* On a narrow screen the label would crowd the content; show only the icon. */
+  .fab-literatura span {
+    display: none;
+  }
+}
+
+/* Skip link: hidden until focused, then revealed at the top-left. Lets keyboard
+ * users jump past the nav straight to the main content. */
+.skip-link {
+  position: absolute;
+  left: var(--space-2);
+  top: calc(-1 * var(--space-8));
+  z-index: 1000;
+  background: var(--surface-1);
+  color: var(--ink-primary);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  border: 1px solid var(--border);
+  transition: top 0.15s ease;
+}
+.skip-link:focus {
+  top: var(--space-2);
+}
+
+/* Screen-reader-only helper for ARIA labels. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Automatic reading (camada de interpretacao). Labelled callouts, kept apart
+ * from the datum and from the third-party literature; never colored on the map. */
+.leitura-fatia {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  border-left: 3px solid var(--accent);
+  background: var(--surface-1);
+  border-radius: var(--radius-control);
+  color: var(--ink-secondary);
+  font-size: var(--text-body);
+}
+.leitura-fatia-tag {
+  font-size: var(--text-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+}
+.leitura-relatorio {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  color: var(--ink-secondary);
+}
+.leitura-titulo {
+  margin: 0;
+  font-size: var(--text-body);
+  font-weight: var(--weight-title);
+  color: var(--ink-primary);
+}
+.leitura-nota {
+  margin: 0;
+  font-size: var(--text-caption);
+  color: var(--ink-muted);
+}
+
+/* Fade-in do cartao do tour guiado (ver components/Tour.tsx). */
+@keyframes idm-tour-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Brand mark beside the lead title. The mark is the national mesh painted by
+   the IDM gradient, so it carries no text and works on both themes; it is
+   decorative here because the title next to it already names the panel. */
+.nav-lead-com-marca {
+  display: flex;
+  /* .nav-lead stacks title over subtitle in a column; the mark sits beside that
+     stack, so this variant switches the outer axis back to a row. */
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.nav-lead-com-marca > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.nav-marca {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  .nav-marca {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* One-page municipal report: hidden on screen, revealed only for print. The
+ * "Baixar relatório" button calls window.print(); the browser exports to PDF. */
+.botao-relatorio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-1, 4px);
+  background: var(--surface-1);
+  color: var(--ink-secondary);
+  font-size: var(--text-body);
+  cursor: pointer;
+}
+
+.botao-relatorio:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.relatorio-municipio {
+  display: none;
+}
+
+.relatorio-municipio h1,
+.relatorio-municipio h2 {
+  color: #000;
+}
+
+@media print {
+  /* The report is portalled to body as a sibling of #root. Hiding #root removes
+   * the whole interactive app and the tall profile from the print flow, so only
+   * the self-contained report prints, on a single sheet with no trailing blanks. */
+  #root {
+    display: none !important;
+  }
+
+  .relatorio-municipio {
+    display: block;
+    margin: 0;
+    color: #000;
+    background: #fff;
+    font-size: 10pt;
+    line-height: 1.3;
+  }
+
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  .relatorio-cab {
+    border-bottom: 2px solid #000;
+    padding-bottom: 4pt;
+    margin-bottom: 8pt;
+  }
+
+  .relatorio-selo {
+    margin: 0;
+    font-size: 9pt;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #333;
+  }
+
+  .relatorio-titulo {
+    margin: 2pt 0 0;
+    font-size: 20pt;
+  }
+
+  .relatorio-sub {
+    margin: 2pt 0 0;
+    font-size: 10pt;
+    color: #333;
+  }
+
+  .relatorio-idm {
+    margin: 8pt 0;
+  }
+
+  .relatorio-idm-num {
+    font-size: 16pt;
+    font-weight: 700;
+  }
+
+  .relatorio-idm-perc {
+    margin: 2pt 0 0;
+    font-size: 10pt;
+  }
+
+  .relatorio-eixos {
+    display: flex;
+    gap: 16pt;
+    list-style: none;
+    margin: 6pt 0 0;
+    padding: 0;
+  }
+
+  .relatorio-eixos li {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .relatorio-eixos span {
+    font-size: 8.5pt;
+    color: #333;
+  }
+
+  .relatorio-eixos strong {
+    font-size: 12pt;
+  }
+
+  .relatorio-leitura,
+  .relatorio-ficha {
+    margin-top: 6pt;
+  }
+
+  .relatorio-cenarios {
+    margin-top: 6pt;
+    padding: 4pt 8pt;
+    background: #f6f6f4;
+    border: 1px solid #ccc;
+    border-radius: 3pt;
+  }
+
+  .relatorio-cenarios h2 {
+    border: none;
+    margin: 0 0 3pt;
+  }
+
+  .relatorio-verde {
+    color: #0a6b0a;
+  }
+
+  .relatorio-verm {
+    color: #b02020;
+  }
+
+  .relatorio-municipio h2 {
+    font-size: 11pt;
+    margin: 0 0 3pt;
+    border-bottom: 1px solid #999;
+    padding-bottom: 2pt;
+  }
+
+  .relatorio-leitura p {
+    margin: 0 0 3pt;
+  }
+
+  .relatorio-ficha dl,
+  .relatorio-cenarios dl {
+    margin: 0;
+  }
+
+  .relatorio-ficha dl > div,
+  .relatorio-cenarios dl > div {
+    display: flex;
+    gap: 8pt;
+    padding: 2pt 0;
+    border-bottom: 1px dotted #ccc;
+  }
+
+  .relatorio-ficha dt,
+  .relatorio-cenarios dt {
+    flex: 0 0 40%;
+    font-weight: 600;
+  }
+
+  .relatorio-ficha dd,
+  .relatorio-cenarios dd {
+    margin: 0;
+    flex: 1;
+  }
+
+  .relatorio-rodape {
+    margin-top: 6pt;
+    padding-top: 3pt;
+    border-top: 1px solid #999;
+    font-size: 7.5pt;
+    color: #333;
+  }
+
+  .relatorio-rodape p {
+    margin: 0 0 2pt;
+  }
+
+  .relatorio-nota {
+    font-style: italic;
+  }
+}

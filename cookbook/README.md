@@ -1,17 +1,12 @@
 # Como reproduzir e como conferir
 
-Este pacote publica **o dado e o método**, não o código. A reprodutibilidade aqui
-não depende de executar um script do autor: depende de a especificação ser
-completa o bastante para uma reimplementação independente chegar aos mesmos
-números, e de os artefatos publicados permitirem conferência direta contra a
-fonte oficial.
-
-São dois caminhos, e o segundo não exige programar nada.
+Este pacote publica o dado, o método e o código. São três caminhos: conferir o que foi publicado sem programar nada, executar o código que gerou os artefatos, ou reimplementar o índice do zero a partir da especificação, sem depender do código dos autores.
 
 | Caminho | Para quem | Onde |
 |---------|-----------|------|
 | **Reimplementar** o índice do zero, a partir das fontes | pesquisador, equipe técnica | [01-fontes.md](01-fontes.md) e [02-metodo.md](02-metodo.md) |
 | **Conferir** o que foi publicado, sem reimplementar | avaliador, jornalista, gestor | [03-conferir.md](03-conferir.md) |
+| **Executar** o painel e o pipeline dos autores | desenvolvedor, equipe técnica | [04-executar.md](04-executar.md) |
 
 ## O que sustenta a afirmação de reprodutibilidade
 
@@ -30,6 +25,7 @@ São dois caminhos, e o segundo não exige programar nada.
    sustentam as afirmações do painel, para serem checadas, não aceitas.
 6. **Casos conferíveis à mão.** [03-conferir.md](03-conferir.md) lista fatos que
    se verificam direto na fonte oficial, sem confiar no autor.
+7. **Código aberto.** O pipeline, a camada de leitura automática e o painel estão em `pipeline/`, `interpretacao/` e `app/`, sob licença MIT, e [04-executar.md](04-executar.md) roda cada etapa.
 
 ## Convenção
 

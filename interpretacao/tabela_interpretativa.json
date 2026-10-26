@@ -1,0 +1,1683 @@
+{
+ "eixos": {
+  "orbita": {
+   "orbita_curta": {
+    "rotulo": "órbita curta",
+    "condicao": "orbitante, polo a menos de 50 km",
+    "leitura": "orbita seu polo a curta distância"
+   },
+   "orbita_media": {
+    "rotulo": "órbita média",
+    "condicao": "orbitante, polo entre 50 e 120 km",
+    "leitura": "orbita seu polo a distância média"
+   },
+   "orbita_longa": {
+    "rotulo": "órbita longa",
+    "condicao": "orbitante, polo a mais de 120 km",
+    "leitura": "orbita seu polo a longa distância"
+   },
+   "polo_regional": {
+    "rotulo": "polo regional",
+    "condicao": "polo que atrai 10 ou mais municípios",
+    "leitura": "polariza uma rede regional, destino de muitos municípios"
+   },
+   "polo_pequeno": {
+    "rotulo": "polo pequeno",
+    "condicao": "polo que atrai de 1 a 9 municípios",
+    "leitura": "polariza poucos municípios"
+   },
+   "polo_local": {
+    "rotulo": "polo local",
+    "condicao": "polo sem municípios em órbita",
+    "leitura": "é polo, mas não atrai municípios"
+   },
+   "semi_polo": {
+    "rotulo": "semi-polo",
+    "condicao": "posição intermediária na rede urbana",
+    "leitura": "posição intermediária, entre polo e orbitante"
+   }
+  },
+  "fiscal": {
+   "compacto": {
+    "rotulo": "orçamento compacto",
+    "condicao": "FPM igual ou abaixo da mediana do porte e receita/PIB abaixo da mediana",
+    "leitura": "apoia-se em repasse menos que os pares, mas a arrecadação total frente à economia local é enxuta",
+    "gestor": "para fortalecer a receita própria, a distância ao porte está na base própria, não na transferência"
+   },
+   "sobre_dependencia": {
+    "rotulo": "sobre-dependência de repasse",
+    "condicao": "FPM acima da mediana do porte e receita/PIB abaixo da mediana",
+    "leitura": "o repasse pesa mais que nos pares e a arrecadação própria frente ao PIB é menor",
+    "gestor": "para reduzir a exposição a repasse, o FPM está acima do porte e a receita própria abaixo"
+   },
+   "autonomia": {
+    "rotulo": "autonomia relativa",
+    "condicao": "receita/PIB igual ou acima da mediana e FPM igual ou abaixo",
+    "leitura": "a arrecadação própria acompanha ou supera o porte e o repasse fica abaixo dos pares",
+    "gestor": "base fiscal já alinhada ao porte, sem distância a fechar na comparação por tamanho"
+   },
+   "amplo_repasse_alto": {
+    "rotulo": "orçamento amplo com repasse alto",
+    "condicao": "receita/PIB igual ou acima da mediana e FPM acima",
+    "leitura": "a receita frente à economia supera o porte, mas o repasse também pesa mais que nos pares",
+    "gestor": "a receita própria acompanha o porte, mas o peso do repasse é uma referência a acompanhar"
+   }
+  },
+  "servicos": {
+   "retem_ambos": {
+    "rotulo": "polo de serviços",
+    "condicao": "tem hospital de média e alta complexidade e ensino superior",
+    "leitura": "retém saúde de alta complexidade e ensino superior, sendo destino de deslocamento"
+   },
+   "retem_saude": {
+    "rotulo": "retém saúde, exporta ensino",
+    "condicao": "tem hospital, sem ensino superior",
+    "leitura": "retém saúde de alta complexidade, mas a demanda por ensino superior é buscada no polo"
+   },
+   "retem_ensino": {
+    "rotulo": "retém ensino, busca saúde",
+    "condicao": "tem ensino superior, sem hospital",
+    "leitura": "retém ensino superior, mas busca saúde de alta complexidade fora"
+   },
+   "busca_ambos": {
+    "rotulo": "dependente de serviços",
+    "condicao": "sem hospital e sem ensino superior",
+    "leitura": "busca saúde de alta complexidade e ensino superior fora do município"
+   }
+  },
+  "nivel": {
+   "baixa": {
+    "rotulo": "dependência baixa",
+    "condicao": "percentil do IDM abaixo de 33",
+    "leitura": "entre as menos dependentes do país"
+   },
+   "media": {
+    "rotulo": "dependência média",
+    "condicao": "percentil do IDM entre 33 e 66",
+    "leitura": "na faixa intermediária de dependência do país"
+   },
+   "alta": {
+    "rotulo": "dependência alta",
+    "condicao": "percentil do IDM acima de 66",
+    "leitura": "entre as mais dependentes do país"
+   }
+  }
+ },
+ "perfis": [
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 506
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 364
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 201
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 184
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "sobre_dependencia",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 184
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 165
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "autonomia",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 163
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 145
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "sobre_dependencia",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 127
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 125
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 125
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "baixa"
+   },
+   "n": 117
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 116
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "autonomia",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 106
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "autonomia",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 104
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "baixa"
+   },
+   "n": 98
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "autonomia",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 97
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "autonomia",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 94
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "sobre_dependencia",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 94
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 92
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 87
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 75
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "compacto",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 73
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "alta"
+   },
+   "n": 73
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 60
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "compacto",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 60
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 58
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 56
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "autonomia",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 54
+  },
+  {
+   "chave": {
+    "orbita": "polo_regional",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 49
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 48
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "alta"
+   },
+   "n": 48
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "sobre_dependencia",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 48
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "autonomia",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 47
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 47
+  },
+  {
+   "chave": {
+    "orbita": "polo_regional",
+    "fiscal": "compacto",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 46
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 46
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 45
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 40
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 39
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 39
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 39
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 38
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "autonomia",
+    "servicos": "retem_saude",
+    "nivel": "alta"
+   },
+   "n": 37
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 34
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "sobre_dependencia",
+    "servicos": "busca_ambos",
+    "nivel": "baixa"
+   },
+   "n": 33
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 32
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "compacto",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 32
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 31
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "autonomia",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 29
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "autonomia",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 28
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 28
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 26
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "alta"
+   },
+   "n": 26
+  },
+  {
+   "chave": {
+    "orbita": "polo_regional",
+    "fiscal": "autonomia",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 25
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 23
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 23
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "autonomia",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 22
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 22
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 22
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 21
+  },
+  {
+   "chave": {
+    "orbita": "polo_regional",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 20
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "autonomia",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 20
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 19
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "autonomia",
+    "servicos": "busca_ambos",
+    "nivel": "baixa"
+   },
+   "n": 19
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "compacto",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 18
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "sobre_dependencia",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 17
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 17
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "compacto",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 16
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 14
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "autonomia",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 14
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 14
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 14
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 13
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "autonomia",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 13
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "sobre_dependencia",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 12
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "autonomia",
+    "servicos": "retem_saude",
+    "nivel": "alta"
+   },
+   "n": 12
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "baixa"
+   },
+   "n": 12
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 11
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "compacto",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 11
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "compacto",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 9
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 9
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 8
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "busca_ambos",
+    "nivel": "baixa"
+   },
+   "n": 8
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 7
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 7
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "autonomia",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 7
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 7
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "autonomia",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 7
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 7
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 7
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 7
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "sobre_dependencia",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 7
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 7
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 7
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "compacto",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 6
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "autonomia",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 6
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 6
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 6
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "compacto",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 6
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "autonomia",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 5
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 5
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 5
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 5
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "compacto",
+    "servicos": "retem_ensino",
+    "nivel": "media"
+   },
+   "n": 5
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "autonomia",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 5
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 4
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "autonomia",
+    "servicos": "retem_saude",
+    "nivel": "alta"
+   },
+   "n": 4
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "autonomia",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 4
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 4
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ambos",
+    "nivel": "media"
+   },
+   "n": 4
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 4
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 4
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ensino",
+    "nivel": "media"
+   },
+   "n": 4
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "sobre_dependencia",
+    "servicos": "busca_ambos",
+    "nivel": "baixa"
+   },
+   "n": 4
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "compacto",
+    "servicos": "retem_ensino",
+    "nivel": "media"
+   },
+   "n": 4
+  },
+  {
+   "chave": {
+    "orbita": "polo_regional",
+    "fiscal": "compacto",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 4
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 4
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 3
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "autonomia",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 3
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_saude",
+    "nivel": "alta"
+   },
+   "n": 3
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 3
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "autonomia",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 3
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 3
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "sobre_dependencia",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 3
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "sobre_dependencia",
+    "servicos": "busca_ambos",
+    "nivel": "baixa"
+   },
+   "n": 3
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "compacto",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 3
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "compacto",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 3
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ambos",
+    "nivel": "media"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_saude",
+    "nivel": "alta"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "alta"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "alta"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "autonomia",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "autonomia",
+    "servicos": "busca_ambos",
+    "nivel": "baixa"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "polo_regional",
+    "fiscal": "compacto",
+    "servicos": "retem_ensino",
+    "nivel": "media"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ensino",
+    "nivel": "media"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "sobre_dependencia",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ensino",
+    "nivel": "media"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "sobre_dependencia",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_saude",
+    "nivel": "alta"
+   },
+   "n": 2
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "alta"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "autonomia",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "autonomia",
+    "servicos": "retem_ambos",
+    "nivel": "media"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ambos",
+    "nivel": "baixa"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "autonomia",
+    "servicos": "retem_ensino",
+    "nivel": "media"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ensino",
+    "nivel": "alta"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "autonomia",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "polo_regional",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_saude",
+    "nivel": "baixa"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ensino",
+    "nivel": "media"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "autonomia",
+    "servicos": "retem_ensino",
+    "nivel": "alta"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ensino",
+    "nivel": "alta"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ensino",
+    "nivel": "alta"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "amplo_repasse_alto",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "autonomia",
+    "servicos": "busca_ambos",
+    "nivel": "baixa"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "autonomia",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "autonomia",
+    "servicos": "busca_ambos",
+    "nivel": "media"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "semi_polo",
+    "fiscal": "autonomia",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ensino",
+    "nivel": "media"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "autonomia",
+    "servicos": "retem_ensino",
+    "nivel": "media"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_curta",
+    "fiscal": "compacto",
+    "servicos": "retem_ensino",
+    "nivel": "media"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "polo_pequeno",
+    "fiscal": "compacto",
+    "servicos": "busca_ambos",
+    "nivel": "baixa"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "polo_regional",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_ensino",
+    "nivel": "media"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "autonomia",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "sobre_dependencia",
+    "servicos": "busca_ambos",
+    "nivel": "alta"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "compacto",
+    "servicos": "retem_ensino",
+    "nivel": "baixa"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "compacto",
+    "servicos": "retem_ensino",
+    "nivel": "media"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "polo_regional",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_longa",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "alta"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "orbita_media",
+    "fiscal": "compacto",
+    "servicos": "retem_saude",
+    "nivel": "alta"
+   },
+   "n": 1
+  },
+  {
+   "chave": {
+    "orbita": "polo_local",
+    "fiscal": "sobre_dependencia",
+    "servicos": "retem_saude",
+    "nivel": "media"
+   },
+   "n": 1
+  }
+ ]
+}

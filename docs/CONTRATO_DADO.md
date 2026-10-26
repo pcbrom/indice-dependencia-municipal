@@ -20,6 +20,8 @@ Um objeto por município em $M$, o universo com dado válido. Granularidade de j
 | porte_faixa | string | | não | faixa populacional (categórica) |
 | tipologia | string | | não | polo, semi-polo ou orbitante |
 | polo_ibge | string(7) | | sim | polo de destino da ligação de menor distância; nulo quando o município não tem ligação qualificada. Polo e semipolo podem ter o campo preenchido, por orbitarem um centro de hierarquia superior |
+| polo_nome | string | | sim | nome do município em `polo_ibge`, para exibição; nulo junto com `polo_ibge` |
+| polo_uf | string(2) | | sim | sigla da unidade da federação do polo; nulo junto com `polo_ibge` |
 | distancia_polo_km | float64 | km | não | distância tabulada no REGIC até `polo_ibge`; zero quando não há ligação qualificada |
 | fpm | float64 | reais | não | FPM recebido no ano-base |
 | receita_total | float64 | reais | não | receita total do município |
@@ -46,6 +48,19 @@ Um objeto por ligação orbitante para polo do REGIC, para a camada de fluxo do 
 | origem_ibge | string(7) | não | município de origem |
 | destino_ibge | string(7) | não | polo de destino |
 | uf_origem | string(2) | não | para agregação por unidade da federação |
+
+## destaques.json
+
+Agregados nacionais de manchete, derivados da partição tipológica do REGIC e da estimativa populacional do IBGE, emitidos por `build.py` como objeto único. A população usa a estimativa corrente (`populacao_estimada`), a mesma somada por polo na camada de leitura automática, de modo que o número nacional reconcilia com as leituras por rede.
+
+| Campo | Tipo | Nulo | Descrição |
+|-------|------|------|-----------|
+| total_municipios | int | não | municípios no conjunto válido do índice |
+| total_populacao | int | não | soma da população estimada no conjunto válido |
+| por_tipologia | objeto | não | por papel (orbitante, semi-polo, polo): `n` e `populacao` |
+| dependentes | objeto | não | agregado do papel orbitante: `n_municipios`, `populacao`, `share_municipios`, `share_populacao` |
+| cobertura | float | não | fração do universo coberta pelo índice (válidos sobre universo) |
+| universo | int | não | total de municípios do país, denominador da cobertura |
 
 ## malha.geojson
 

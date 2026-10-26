@@ -1,0 +1,38 @@
+[project]
+name = "idm-pipeline"
+version = "1.0.0"
+description = "Data pipeline for the Brasil em Orbita IDM panel: ingestion, key standardization, IDM computation, validation and artifact publication."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=2.2",
+    "geopandas>=1.0",
+    "pyarrow>=16.0",
+    "requests>=2.32",
+    "openpyxl>=3.1.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["idm_pipeline"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+# pyflakes, pycodestyle, isort, bugbear
+select = ["E", "F", "I", "B"]

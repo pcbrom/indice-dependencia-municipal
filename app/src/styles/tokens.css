@@ -1,0 +1,116 @@
+/*
+ * Design tokens: the single source of truth for color, space, type and radius.
+ * Values are taken verbatim from docs/TOKENS.md. Components never carry a
+ * literal color or spacing value; they reference the token by role.
+ * Light theme is the default; the dark theme is designed, not auto-inverted.
+ */
+
+:root {
+  /* Chrome and ink */
+  --surface-1: #fcfcfb;
+  --surface-page: #f9f9f7;
+  --ink-primary: #0b0b0b;
+  --ink-secondary: #52514e;
+  --ink-muted: #898781;
+  --gridline: #e1e0d9;
+  --baseline: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+
+  /* IDM ramp (spectral, blue through yellow to red): the only color channel of
+   * the choropleth. Blue = less dependent, yellow = middle, red = more
+   * dependent. RdYlBu reversed; hue carries the reading, not lightness. */
+  --idm-100: #4575b4;
+  --idm-200: #74add1;
+  --idm-300: #abd9e9;
+  --idm-400: #e0f3f8;
+  --idm-450: #fee090;
+  --idm-500: #fdae61;
+  --idm-600: #f46d43;
+  --idm-700: #d73027;
+
+  /* Fiscal divergent axis (blue to red, neutral grey where revenue equals GDP) */
+  --fiscal-cold: #2a78d6;
+  --fiscal-neutral: #f0efec;
+  --fiscal-hot: #d03b3b;
+
+  /* Single accent */
+  --accent: #2a78d6;
+
+  /* Second categorical series, paired with the accent for two-part composition
+   * (e.g. own revenue vs FPM). Amber, chosen for a colorblind-safe separation
+   * from the accent blue and >= 3:1 contrast on both surfaces; validated with the
+   * dataviz palette checker in light and dark. Replaces the too-pale idm-300,
+   * which read near-gray on the light surface. */
+  --serie-2: #d9730d;
+
+  /* Ink placed on the accent (active-state fills). White does not clear AA 4.5:1
+   * on either accent tint (light 4.42:1, dark 3.64:1), so a near-black ink is
+   * used: 4.62:1 over the light accent and 5.60:1 over the dark accent. */
+  --on-accent: #050505;
+
+  /* Status (never themed, always paired with icon and label) */
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-serious: #ec835a;
+  --status-critical: #d03b3b;
+
+  /* Space, base-4 scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Radius */
+  --radius-control: 4px;
+  --radius-card: 8px;
+  --radius-block: 12px;
+  --radius-full: 9999px;
+
+  /* Type family: self-hosted Inter (see main.tsx), system stack as fallback. */
+  --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Type scale */
+  --text-hero: 40px;
+  --text-xl: 28px;
+  --text-lg: 20px;
+  --text-base: 16px;
+  --text-body: 14px;
+  --text-caption: 12px;
+
+  /* Line height, weight and title tracking */
+  --leading-body: 1.5;
+  --leading-title: 1.2;
+  --weight-body: 400;
+  --weight-title: 600;
+  --tracking-title: -0.01em;
+
+  /* Focus ring */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* Elevation: a single soft level for floating layers only */
+  --shadow-floating: 0 4px 12px rgba(11, 11, 11, 0.12);
+}
+
+:root[data-theme="dark"] {
+  --surface-1: #1a1a19;
+  --surface-page: #0d0d0d;
+  --ink-primary: #ffffff;
+  --ink-secondary: #c3c2b7;
+  --ink-muted: #898781;
+  --gridline: #2c2c2a;
+  --baseline: #383835;
+  --border: rgba(255, 255, 255, 0.1);
+
+  /* Fiscal neutral tracks the dark surface */
+  --fiscal-neutral: #383835;
+
+  /* Accent recalibrated for the dark surface */
+  --accent: #3987e5;
+
+  --shadow-floating: 0 4px 12px rgba(0, 0, 0, 0.5);
+}

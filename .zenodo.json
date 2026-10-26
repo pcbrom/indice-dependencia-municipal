@@ -1,9 +1,9 @@
 {
   "title": "Brasil em Órbita: Índice de Dependência Municipal (IDM)",
   "upload_type": "dataset",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "language": "por",
-  "description": "<p>Artefatos de dado e documentação do método do <strong>Índice de Dependência Municipal (IDM)</strong>, que classifica cada município brasileiro por sua função na rede urbana, cruza essa função com a dependência fiscal e a concentração de serviços, e sintetiza os três eixos em um índice composto e descritivo.</p><p>O índice cobre <strong>5.513 municípios</strong> (98,98% do país) sem imputação, a partir do reúso integrado de dados abertos federais: REGIC 2018 (IBGE), FINBRA/DCA 2024 (Tesouro Nacional), PIB dos Municípios (IBGE), CNES (DATASUS), Censo da Educação Superior (INEP), ESTBAN e informes de agências (Banco Central), além de População Estimada (IBGE) e IDHM (PNUD, Ipea e FJP) como camadas de contexto.</p><p>O depósito inclui os artefatos publicados (índice por município, ligações orbitante para polo, camadas de acesso efetivo, agregação por região funcional, malha, validação e manifesto de proveniência) e a documentação que especifica o índice, as fontes com data de extração, o contrato de dado e o roteiro de conferência, com detalhe suficiente para reimplementação independente.</p><p>Painel público: <a href=\"https://idm.pcbrom.com\">https://idm.pcbrom.com</a></p><p><strong>Licenciamento em três regimes</strong>, detalhados no arquivo LICENSE: as bases públicas de origem seguem os termos dos respectivos órgãos; a documentação está sob CC BY 4.0; os artefatos derivados do processamento dos autores são publicados para consulta, conferência e verificação independente, com redistribuição, incorporação a produtos de terceiros e exploração comercial reservadas. O software que produz e apresenta os artefatos não integra este depósito e permanece com os autores.</p><p>O índice é descritivo: mede posição estrutural e não avalia gestão pública.</p>",
+  "description": "<p>Artefatos de dado e documentação do método do <strong>Índice de Dependência Municipal (IDM)</strong>, que classifica cada município brasileiro por sua função na rede urbana, cruza essa função com a dependência fiscal e a concentração de serviços, e sintetiza os três eixos em um índice composto e descritivo.</p><p>O índice cobre <strong>5.513 municípios</strong> (98,98% do país) sem imputação, a partir do reúso integrado de dados abertos federais: REGIC 2018 (IBGE), FINBRA/DCA 2024 (Tesouro Nacional), PIB dos Municípios (IBGE), CNES (DATASUS), Censo da Educação Superior (INEP), ESTBAN e informes de agências (Banco Central), além de População Estimada (IBGE) e IDHM (PNUD, Ipea e FJP) como camadas de contexto.</p><p>O depósito inclui o código, os artefatos publicados (índice por município, ligações orbitante para polo, camadas de acesso efetivo, agregação por região funcional, malha, validação e manifesto de proveniência) e a documentação que especifica o índice, as fontes com data de extração, o contrato de dado e o roteiro de conferência, com detalhe suficiente para reimplementação independente.</p><p>Painel público: <a href=\"https://idm.pcbrom.com\">https://idm.pcbrom.com</a></p><p><strong>Código, dados e licenças.</strong> A partir da versão 0.2.0 o depósito inclui o código completo que produz e apresenta o índice: o pipeline em Python, a camada de leitura automática com o portão de validação e o painel web. O código está sob licença MIT; os artefatos de dado derivados e a documentação, sob CC BY 4.0; as bases públicas de origem seguem os termos dos respectivos órgãos.</p><p>O índice é descritivo: mede posição estrutural e não avalia gestão pública.</p>",
   "creators": [
     {
       "name": "Brom, Pedro Carvalho",
@@ -23,9 +23,11 @@
     "dependência municipal",
     "municípios brasileiros",
     "FPM",
-    "acesso a serviços públicos"
+    "acesso a serviços públicos",
+    "código aberto",
+    "reprodutibilidade"
   ],
-  "license": "other-nc",
+  "license": "cc-by-4.0",
   "access_right": "open",
   "related_identifiers": [
     {

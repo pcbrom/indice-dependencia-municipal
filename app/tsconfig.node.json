@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    // A composite referenced project may not disable emit (TS6310). Keep emit
+    // enabled but send any generated declaration/tsbuildinfo outside the source
+    // tree so `tsc --noEmit` typechecks with zero production artifacts.
+    "emitDeclarationOnly": false,
+    "outDir": "./node_modules/.tmp/tsc-node"
+  },
+  "include": ["vite.config.ts"]
+}

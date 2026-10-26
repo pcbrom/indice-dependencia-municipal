@@ -1,11 +1,10 @@
 Brasil em Órbita: Índice de Dependência Municipal (IDM)
 Copyright 2026 Pedro Carvalho Brom, Daniel Soares de Souza
 
-Este repositorio reune materiais sob regimes distintos, detalhados em LICENSE:
-a documentacao esta sob CC BY 4.0; os artefatos de dado derivados do
-processamento dos autores sao publicados para consulta e verificacao, com
-redistribuicao e uso comercial reservados; e o software que os produz nao e
-distribuido aqui e permanece com todos os direitos reservados.
+Este repositorio reune materiais sob tres regimes, detalhados em LICENSE e
+LICENSE-DADOS.md: o codigo esta sob licenca MIT; os artefatos de dado
+derivados e a documentacao estao sob CC BY 4.0; e as bases publicas de origem
+seguem os termos dos respectivos orgaos.
 
 Os dados de origem são conjuntos abertos, de domínio dos respectivos órgãos
 federais, reusados sob seus termos de dado aberto e citados com fonte e data de
