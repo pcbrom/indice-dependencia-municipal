@@ -181,6 +181,21 @@ export function PainelPolo({
             ? `Quem depende: ${orbitantes.length} município(s) orbitam esta cidade, somando ${formatarInteiro.format(populacaoOrbitantes)} habitantes.`
             : "Nenhum município orbita esta cidade diretamente."}
         </p>
+        {(polo || orbitantes.length > 0) && (
+          <p style={{ ...estiloTextoNota, display: "flex", flexWrap: "wrap", gap: "var(--space-1) var(--space-3)" }}>
+            <span>No mapa:</span>
+            {orbitantes.length > 0 && (
+              <span>
+                <AmostraSeta cor="var(--accent)" /> quem depende desta cidade
+              </span>
+            )}
+            {polo && (
+              <span>
+                <AmostraSeta cor="var(--ink-primary)" /> de quem ela depende
+              </span>
+            )}
+          </p>
+        )}
       </SecaoPainel>
 
       <SecaoPainel titulo="Eixo fiscal">
@@ -271,6 +286,25 @@ export function PainelPolo({
         </button>
       </nav>
     </aside>
+  );
+}
+
+// Legend swatch for the map's ego-graph edges, in the same tokens the map uses
+// (EgoGraphOrbita), so it follows the theme without naming a color.
+function AmostraSeta({ cor }: { cor: string }) {
+  return (
+    <span
+      aria-hidden
+      style={{
+        display: "inline-block",
+        width: "18px",
+        height: "3px",
+        marginRight: "4px",
+        verticalAlign: "middle",
+        borderRadius: "2px",
+        background: cor,
+      }}
+    />
   );
 }
 

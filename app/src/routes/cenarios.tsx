@@ -586,6 +586,20 @@ function ComoLerAgregacao({ analise, nomes }: { analise: AnaliseAgregacao; nomes
         âncora. É uma leitura estrutural e descritiva, não uma recomendação de
         fusão.
       </p>
+      <p style={{ margin: "0 0 var(--space-2)" }}>
+        É a pergunta do debate sobre extinção e fusão de pequenos municípios. A{" "}
+        <a
+          href="https://www25.senado.leg.br/web/atividade/materias/-/materia/139704"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          PEC 188/2019
+        </a>
+        , arquivada em 2022, propunha incorporar a um vizinho limítrofe os
+        municípios com menos de 5 mil habitantes e baixa arrecadação própria.
+        Aqui a agregação segue a rede urbana real, a cidade que a população já
+        usa para os serviços.
+      </p>
       <ul style={{ margin: 0, paddingLeft: "var(--space-4)", display: "flex", flexDirection: "column", gap: "var(--space-1)" }}>
         {item(
           "IDM médio, atual → simulado",

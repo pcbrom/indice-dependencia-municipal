@@ -28,7 +28,16 @@ const FONTE_SETAS = "ego-orbita-setas";
 const CAMADA_EGO = "ego-orbita-linha";
 const CAMADA_EGO_GRUPO = "ego-orbita-grupo";
 const CAMADA_SETAS = "ego-orbita-setas-camada";
+const CAMADA_EGO_SAIDA = "ego-orbita-linha-saida";
 const IMG_SETA = "ego-orbita-seta";
+const IMG_SETA_SAIDA = "ego-orbita-seta-saida";
+
+// Incoming edges (who depends on this city) use the accent; the outgoing edge
+// (the polo this city depends on) uses the primary ink, which contrasts with
+// every step of the IDM ramp and differs from the accent in luminance, so the
+// two directions stay apart for color-blind readers too.
+const TOKEN_ENTRADA = "--accent";
+const TOKEN_SAIDA = "--ink-primary";
 
 // Compass bearing origem->destino in degrees (0 = north, clockwise). Matches
 // MapLibre's icon-rotate with icon-rotation-alignment "map" (the map is
@@ -198,17 +207,18 @@ export function EgoGraphOrbita({
       ca: [number, number] | undefined,
       b: string,
       cb: [number, number] | undefined,
+      classe: "direta" | "saida" = "direta",
     ) => {
       if (!ca || !cb) return;
       diretas.add(`${a}|${b}`);
       linhas.push({
         type: "Feature",
-        properties: { classe: "direta" },
+        properties: { classe },
         geometry: { type: "LineString", coordinates: [ca, cb] },
       });
       setas.push({
         type: "Feature",
-        properties: { rumo: rumo(ca, cb) },
+        properties: { rumo: rumo(ca, cb), seta: classe === "saida" ? IMG_SETA_SAIDA : IMG_SETA },
         geometry: { type: "Point", coordinates: pontoMedio(ca, cb) },
       });
     };
@@ -221,6 +231,7 @@ export function EgoGraphOrbita({
         origem,
         municipioAtual.polo_ibge,
         centroides.get(municipioAtual.polo_ibge),
+        "saida",
       );
     }
 
@@ -260,7 +271,14 @@ export function EgoGraphOrbita({
     if (!mapa.hasImage(IMG_SETA)) {
       mapa.addImage(
         IMG_SETA,
-        imagemSeta(lerToken("--accent"), lerToken("--surface-1")),
+        imagemSeta(lerToken(TOKEN_ENTRADA), lerToken("--surface-1")),
+        { pixelRatio: 2 },
+      );
+    }
+    if (!mapa.hasImage(IMG_SETA_SAIDA)) {
+      mapa.addImage(
+        IMG_SETA_SAIDA,
+        imagemSeta(lerToken(TOKEN_SAIDA), lerToken("--surface-1")),
         { pixelRatio: 2 },
       );
     }
@@ -293,9 +311,20 @@ export function EgoGraphOrbita({
         source: FONTE_EGO,
         filter: ["==", ["get", "classe"], "direta"] as unknown as FilterSpecification,
         paint: {
-          "line-color": lerToken("--accent"),
+          "line-color": lerToken(TOKEN_ENTRADA),
           "line-width": 2,
           "line-opacity": 0.75,
+        },
+      } as unknown as AddLayerObject);
+      mapa.addLayer({
+        id: CAMADA_EGO_SAIDA,
+        type: "line",
+        source: FONTE_EGO,
+        filter: ["==", ["get", "classe"], "saida"] as unknown as FilterSpecification,
+        paint: {
+          "line-color": lerToken(TOKEN_SAIDA),
+          "line-width": 2.5,
+          "line-opacity": 0.85,
         },
       } as unknown as AddLayerObject);
     }
@@ -313,7 +342,7 @@ export function EgoGraphOrbita({
         type: "symbol",
         source: FONTE_SETAS,
         layout: {
-          "icon-image": IMG_SETA,
+          "icon-image": ["get", "seta"],
           "icon-size": 1.3,
           "icon-rotate": ["get", "rumo"],
           "icon-rotation-alignment": "map",
@@ -347,15 +376,23 @@ export function EgoGraphOrbita({
     if (!mapa) return;
     const observer = new MutationObserver(() => {
       if (!mapaEstaVivo(mapa)) return;
-      const cor = lerToken("--accent");
+      const cor = lerToken(TOKEN_ENTRADA);
+      const corSaida = lerToken(TOKEN_SAIDA);
+      const contorno = lerToken("--surface-1");
       if (mapa.getLayer(CAMADA_EGO)) {
         mapa.setPaintProperty(CAMADA_EGO, "line-color", cor);
       }
       if (mapa.getLayer(CAMADA_EGO_GRUPO)) {
         mapa.setPaintProperty(CAMADA_EGO_GRUPO, "line-color", cor);
       }
+      if (mapa.getLayer(CAMADA_EGO_SAIDA)) {
+        mapa.setPaintProperty(CAMADA_EGO_SAIDA, "line-color", corSaida);
+      }
       if (mapa.hasImage(IMG_SETA)) {
-        mapa.updateImage(IMG_SETA, imagemSeta(cor, lerToken("--surface-1")));
+        mapa.updateImage(IMG_SETA, imagemSeta(cor, contorno));
+      }
+      if (mapa.hasImage(IMG_SETA_SAIDA)) {
+        mapa.updateImage(IMG_SETA_SAIDA, imagemSeta(corSaida, contorno));
       }
     });
     observer.observe(document.documentElement, {

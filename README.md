@@ -79,7 +79,7 @@ O DOI de conceito abaixo resolve sempre para a versão mais recente. O DOI de ca
   author    = {Brom, Pedro Carvalho and Souza, Daniel Soares de},
   year      = {2026},
   publisher = {Zenodo},
-  version   = {0.2.1},
+  version   = {0.2.2},
   doi       = {10.5281/zenodo.21431702},
   url       = {https://doi.org/10.5281/zenodo.21431702}
 }

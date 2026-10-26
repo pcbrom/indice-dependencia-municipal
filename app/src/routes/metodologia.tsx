@@ -32,6 +32,70 @@ function formatarNumero(valor: number, casas = 2): string {
 // mais a leitura do manifesto e da validacao publicados pelo pipeline. O IDM e
 // descritivo, nao causal (ver docs/DECISAO_CAUSAL.md); o quadro de literatura
 // fecha a pagina, separado do dado municipal.
+// Public debates the index answers, each tied to the screen that answers it and
+// to the official source of the debate. Figures come from the loaded artifact,
+// so they follow any regeneration; descriptive only, no position on the
+// proposals (docs/DECISAO_CAUSAL.md).
+function DebatePublico({ municipios }: { municipios: Municipio[] }) {
+  const pequenos = municipios.filter((m) => m.populacao < 5000);
+  const pequenosOrbitam = pequenos.filter((m) => m.tipologia === "orbitante").length;
+  const fpmMaioria = municipios.filter((m) => m.razao_fpm_receita > 0.5).length;
+  const n = (v: number) => v.toLocaleString("pt-BR");
+  const externo = (href: string, texto: string) => (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      {texto}
+    </a>
+  );
+  const item = { color: "var(--ink-primary)" };
+  return (
+    <section style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+      <h2 style={{ fontSize: "var(--text-lg)" }}>O IDM no debate público</h2>
+      <p style={{ color: "var(--ink-secondary)" }}>
+        O índice responde a perguntas que estão no centro do debate federativo
+        brasileiro. Em cada uma, o painel descreve a estrutura que a decisão vai
+        encontrar; a decisão continua com quem governa.
+      </p>
+      <ul style={{ color: "var(--ink-secondary)", display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+        <li>
+          <strong style={item}>Extinção e fusão de pequenos municípios.</strong> A{" "}
+          {externo("https://www25.senado.leg.br/web/atividade/materias/-/materia/139704", "PEC 188/2019")}{" "}
+          propôs extinguir municípios com menos de 5 mil habitantes e arrecadação
+          própria inferior a 10% da receita, incorporando-os a um município
+          limítrofe, e foi arquivada ao final da legislatura, em 22/12/2022. A
+          pergunta que ela colocou permanece, e{" "}
+          <Link to="/cenarios">Brasil em Cenários</Link> a responde com outro
+          critério: em vez do vizinho de fronteira, a cidade que a população já
+          procura para hospital, faculdade e banco, com o custo da máquina
+          pública, o efeito no FPM e a presença de centro de serviço na sede.
+          {pequenos.length > 0 &&
+            ` Dos ${n(pequenos.length)} municípios do índice com menos de 5 mil habitantes, ${n(pequenosOrbitam)} orbitam outra cidade.`}
+        </li>
+        <li>
+          <strong style={item}>Dependência do FPM e o Censo 2022.</strong> A{" "}
+          {externo("https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp198.htm", "Lei Complementar 198/2023")}{" "}
+          manteve os coeficientes do FPM dos municípios que perderam população no
+          censo, com redutor de transição. O <Link to="/fiscal">eixo fiscal</Link>{" "}
+          mostra a participação do FPM na receita de cada município frente aos de
+          mesmo porte, ou seja, onde uma mudança de coeficiente pesa mais no
+          orçamento.
+          {fpmMaioria > 0 && ` Em ${n(fpmMaioria)} municípios, o FPM passa de metade da receita.`}
+        </li>
+        <li>
+          <strong style={item}>Regiões de saúde e consórcios públicos.</strong> O{" "}
+          {externo("https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/decreto/d7508.htm", "Decreto 7.508/2011")}{" "}
+          define a região de saúde como agrupamento de municípios limítrofes, e a{" "}
+          {externo("https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11107.htm", "Lei 11.107/2005")}{" "}
+          rege os consórcios públicos. O <Link to="/">mapa de órbitas</Link> e a{" "}
+          <Link to="/rede">rede</Link> mostram para onde cada município de fato
+          leva a demanda e se o polo de destino tem UTI, curso presencial e
+          agência bancária, o recorte que um consórcio ou uma região de saúde
+          precisa conhecer.
+        </li>
+      </ul>
+    </section>
+  );
+}
+
 export default function Metodologia() {
   const [manifesto, setManifesto] = useState<Manifesto | null>(null);
   const [validacao, setValidacao] = useState<Record<string, unknown> | null>(null);
@@ -168,6 +232,8 @@ export default function Metodologia() {
           </li>
         </ul>
       </section>
+
+      <DebatePublico municipios={municipios} />
 
       <section style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
         <h2 style={{ fontSize: "var(--text-lg)" }}>Código, dados e licença</h2>

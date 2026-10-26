@@ -62,7 +62,7 @@ export function App() {
           <a href="#conteudo" className="skip-link">
             Pular para o conteúdo
           </a>
-          <Nav rotaAtiva={rota} lead={lead} subLead={subLead} />
+          <Nav rotaAtiva={rota} lead={lead} subLead={subLead} doi={rota === "mapa" ? DOI_CONCEITO : undefined} />
           <main
             id="conteudo"
             tabIndex={-1}
