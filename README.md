@@ -9,6 +9,40 @@ Observatório interativo que classifica cada município brasileiro por sua funç
 
 O painel está publicado em **https://idm.pcbrom.com**.
 
+## Como replicar, passo a passo
+
+Cinco passos, do mais rápido ao mais completo. Os dois primeiros não exigem baixar nenhuma base oficial, porque os artefatos publicados em `dados/` são o resultado completo do pipeline. Os passos 2 e 3 rodam automaticamente no [CI](https://github.com/pcbrom/indice-dependencia-municipal/actions/workflows/ci.yml) a cada mudança do repositório.
+
+**1. Conferir sem programar.** A receita [cookbook/03-conferir.md](cookbook/03-conferir.md) lista a proveniência datada de cada base, as medidas de validação e casos de controle que se verificam direto na fonte oficial, como o município com receita acima do próprio PIB.
+
+**2. Reproduzir o índice publicado.** Com [uv](https://docs.astral.sh/uv/) instalado, três comandos recalculam o IDM dos 5.513 municípios com a fórmula do código e comparam com o valor publicado:
+
+```bash
+git clone https://github.com/pcbrom/indice-dependencia-municipal
+cd indice-dependencia-municipal
+uv run --project pipeline python pipeline/exemplos/recalcular_idm.py
+```
+
+Saída esperada: `Conferência: 5513 municípios, maior diferença absoluta para o IDM publicado = 0.00e+00`.
+
+**3. Rodar o painel localmente.** Com [Bun](https://bun.sh/) instalado, o painel abre em `http://localhost:5173` com os artefatos publicados:
+
+```bash
+cp -r dados app/public/data
+cd app && bun install && bun run dev
+```
+
+**4. Regenerar os artefatos a partir das fontes oficiais.** A receita [cookbook/01-fontes.md](cookbook/01-fontes.md) traz o endereço exato e a data de extração de cada base, e [cookbook/04-executar.md](cookbook/04-executar.md) traz a sequência completa do pipeline, na ordem em que um passo alimenta o seguinte, com o resultado esperado de cada etapa.
+
+**5. Adaptar a outro recorte.** O mesmo exemplo recalcula o índice com pesos alternativos ou dentro de uma UF, e a fórmula pode ser importada como biblioteca, como descrito em [Usar como biblioteca](#usar-como-biblioteca):
+
+```bash
+uv run --project pipeline python pipeline/exemplos/recalcular_idm.py --pesos 0.5,0.25,0.25
+uv run --project pipeline python pipeline/exemplos/recalcular_idm.py --uf PE
+```
+
+Para reimplementar o índice do zero, sem usar o código dos autores, a especificação formal está em [docs/IDM_SPEC.md](docs/IDM_SPEC.md) e o método passo a passo em [cookbook/02-metodo.md](cookbook/02-metodo.md).
+
 ## O que este repositório contém
 
 Tudo o que produz e apresenta o índice: o código, os artefatos de dado completos e a documentação do método. Qualquer número do painel pode ser conferido contra a fonte oficial, regenerado com o pipeline ou reimplementado do zero a partir da especificação.
