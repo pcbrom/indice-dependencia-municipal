@@ -1,0 +1,9 @@
+# Local reproduction of the IDM panel. See reproducao/Dockerfile.
+#   docker compose up --build   ->   http://localhost:8080
+services:
+  painel:
+    build:
+      context: .
+      dockerfile: reproducao/Dockerfile
+    ports:
+      - "127.0.0.1:8080:8080"

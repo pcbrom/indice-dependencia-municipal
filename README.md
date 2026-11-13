@@ -11,11 +11,29 @@ O painel está publicado em **https://idm.pcbrom.com**.
 
 ## Como replicar, passo a passo
 
-Cinco passos, do mais rápido ao mais completo. Os dois primeiros não exigem baixar nenhuma base oficial, porque os artefatos publicados em `dados/` são o resultado completo do pipeline. Os passos 2 e 3 rodam automaticamente no [CI](https://github.com/pcbrom/indice-dependencia-municipal/actions/workflows/ci.yml) a cada mudança do repositório.
+O caminho mais curto exige só o [Docker](https://docs.docker.com/get-docker/) e um comando. Ele roda os testes da fórmula, recalcula o IDM dos 5.513 municípios com o código publicado, falha se houver qualquer diferença para o valor publicado e, se a conferência passar, constrói e serve o painel completo no seu computador:
+
+```bash
+git clone https://github.com/pcbrom/indice-dependencia-municipal
+cd indice-dependencia-municipal
+docker compose up --build
+```
+
+Abra **http://localhost:8080**: é o mesmo painel publicado, construído a partir deste repositório. O registro da conferência fica em **http://localhost:8080/conferencia.txt**:
+
+```text
+== testes da formula ==
+21 passed
+
+== recalculo do IDM publicado ==
+Conferência: 5513 municípios, maior diferença absoluta para o IDM publicado = 0.00e+00
+```
+
+Os passos seguintes detalham cada parte, do mais rápido ao mais completo. Os dois primeiros não exigem baixar nenhuma base oficial, porque os artefatos publicados em `dados/` são o resultado completo do pipeline. Os passos 2 e 3 também rodam automaticamente no [CI](https://github.com/pcbrom/indice-dependencia-municipal/actions/workflows/ci.yml) a cada mudança do repositório.
 
 **1. Conferir sem programar.** A receita [cookbook/03-conferir.md](cookbook/03-conferir.md) lista a proveniência datada de cada base, as medidas de validação e casos de controle que se verificam direto na fonte oficial, como o município com receita acima do próprio PIB.
 
-**2. Reproduzir o índice publicado.** Com [uv](https://docs.astral.sh/uv/) instalado, três comandos recalculam o IDM dos 5.513 municípios com a fórmula do código e comparam com o valor publicado:
+**2. Reproduzir o índice publicado sem Docker.** Com [uv](https://docs.astral.sh/uv/) instalado, três comandos recalculam o IDM dos 5.513 municípios com a fórmula do código e comparam com o valor publicado:
 
 ```bash
 git clone https://github.com/pcbrom/indice-dependencia-municipal
@@ -25,7 +43,7 @@ uv run --project pipeline python pipeline/exemplos/recalcular_idm.py
 
 Saída esperada: `Conferência: 5513 municípios, maior diferença absoluta para o IDM publicado = 0.00e+00`.
 
-**3. Rodar o painel localmente.** Com [Bun](https://bun.sh/) instalado, o painel abre em `http://localhost:5173` com os artefatos publicados:
+**3. Rodar o painel em modo de desenvolvimento.** Com [Bun](https://bun.sh/) instalado, o painel abre em `http://localhost:5173` com os artefatos publicados:
 
 ```bash
 cp -r dados app/public/data
@@ -51,6 +69,7 @@ Tudo o que produz e apresenta o índice: o código, os artefatos de dado complet
 pipeline/       Python (pandas, geopandas): ingestão, chave IBGE de sete dígitos, cálculo do IDM, validação e manifesto
 interpretacao/  leitura automática por município: harness determinístico, dicionário de símbolos e portão de validação
 app/            painel web estático (Vite, React e TypeScript), com dado lido no cliente
+reproducao/     deploy local em um comando: conferência do índice e painel servido em contêiner
 dados/          artefatos publicados: índice, ligações, camadas de acesso, cenários, malha, validação e manifesto de proveniência
 docs/           definição do problema, especificação formal do índice, fontes, contrato de dado, decisões de método e sistema visual
 cookbook/       como reproduzir, como executar o código e como conferir os artefatos

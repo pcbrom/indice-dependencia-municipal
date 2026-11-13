@@ -2,6 +2,18 @@
 
 Procedimento para rodar o painel com os artefatos publicados e para regenerar esses artefatos com o pipeline, a partir das bases oficiais de [01-fontes.md](01-fontes.md). Todos os comandos partem da raiz do repositório.
 
+## Em um comando, só com Docker
+
+O arquivo `compose.yaml` da raiz e a receita `reproducao/Dockerfile` reúnem a conferência e o painel. A construção roda os testes da fórmula, recalcula o IDM de `dados/municipios.json` com o código publicado e interrompe o processo se houver qualquer diferença. Só depois constrói o painel a partir dos mesmos artefatos e o serve com a configuração de nginx usada em produção.
+
+```bash
+docker compose up --build
+```
+
+> **Confira:** o painel abre em http://localhost:8080 com 5.513 municípios, e http://localhost:8080/conferencia.txt traz `21 passed` e `maior diferença absoluta para o IDM publicado = 0.00e+00`.
+
+Para encerrar, `docker compose down`.
+
 ## Pré-requisitos
 
 - Python 3.12 ou superior e [uv](https://docs.astral.sh/uv/) para o pipeline.
